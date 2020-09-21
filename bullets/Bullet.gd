@@ -1,19 +1,16 @@
 extends Area2D
 
-const SPEED = 300
+export var speed = 0
+export var damage = 0
 
 var velocity = Vector2.ZERO
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	$AnimationPlayer.play("idle")
 
 func _process(delta):
 	_move_bullet(delta)
 	_remove_if_off_screen()
 
 func _move_bullet(delta):
-	velocity = Vector2(1, 0).rotated(rotation) * SPEED
+	velocity = Vector2(1, 0).rotated(rotation) * speed
 	position += velocity * delta
 
 func _remove_if_off_screen():

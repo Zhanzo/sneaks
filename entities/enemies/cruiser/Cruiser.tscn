@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://entities/enemies/cruiser/Cruiser.gd" type="Script" id=1]
+[ext_resource path="res://entities/enemies/cruiser/enemy-small.png" type="Texture" id=2]
+[ext_resource path="res://entities/Entity.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 8 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "idle"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "hurt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 1 ), Color( 10, 10, 10, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 8, 8 )
+
+[node name="Cruiser" instance=ExtResource( 3 )]
+scale = Vector2( 2, 2 )
+collision_layer = 2
+collision_mask = 3
+script = ExtResource( 1 )
+health = 3
+speed = 100
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+rotation = -1.5708
+texture = ExtResource( 2 )
+hframes = 2
+frame = 1
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+anims/idle = SubResource( 5 )
+
+[node name="HitAnimationPlayer" parent="." index="3"]
+anims/hurt = SubResource( 3 )
+
+[node name="CollisionArea" type="Area2D" parent="." index="4"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea" index="0"]
+shape = SubResource( 4 )
+
+[node name="BulletSpawn" type="Position2D" parent="." index="5"]
+position = Vector2( 10, 0 )
+
+[node name="BulletDelay" type="Timer" parent="." index="6"]
+one_shot = true
+[connection signal="area_entered" from="CollisionArea" to="." method="_on_CollisionArea_area_entered"]
+[connection signal="timeout" from="BulletDelay" to="." method="_on_BulletDelay_timeout"]

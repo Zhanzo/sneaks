@@ -1,17 +1,17 @@
 extends "res://entities/Entity.gd"
-class_name Entity
 
-const BULLET = preload("res://bullets/PlayerBullet.tscn")
+const BULLET = preload("res://bullets/player_bullet/PlayerBullet.tscn")
 
 var is_shooting = false
 
-func _ready():
-	$AnimationPlayer.play("idle")
+onready var animation_tree = $PlayerRig/AnimationTree
+onready var animation_state = animation_tree.get("parameters/playback")
+
 
 func _physics_process(delta):
 	_get_user_input()
 	_move(delta)
-	_play_animations()
+
 
 func _get_user_input():
 	rotation_direction = 0
@@ -21,11 +21,16 @@ func _get_user_input():
 		rotation_direction += 1
 	if Input.is_action_pressed("ui_left"):
 		rotation_direction -= 1
+	
 	if Input.is_action_pressed("ui_up"):
+		animation_state.travel("forward")
 		velocity = Vector2(1, 0).rotated(rotation) * speed
+	else:
+		animation_state.travel("idle")
 	
 	if Input.is_action_pressed("ui_select") and not is_shooting:
 		_fire_bullet()
+
 
 func _fire_bullet():
 	var bullet = BULLET.instance()
@@ -34,6 +39,7 @@ func _fire_bullet():
 	get_parent().add_child(bullet)
 	is_shooting = true
 	$BulletDelay.start()
+
 
 func _move(delta):
 	rotation += rotation_direction * rotation_speed * delta
@@ -44,14 +50,12 @@ func _move(delta):
 	position.x = clamp(position.x, viewport_rect.position.x, viewport_rect.end.x - 1)
 	position.y = clamp(position.y, viewport_rect.position.y, viewport_rect.end.y - 1)
 
-func _play_animations():
-	if rotation_direction == 0:
-		$AnimationPlayer.play("idle")
-	elif rotation_direction < 0 and $AnimationPlayer.get_assigned_animation() != "turn_left":
-		$AnimationPlayer.play("turn_left")
-	elif rotation_direction > 0 and $AnimationPlayer.get_assigned_animation() != "turn_right":
-		$AnimationPlayer.play("turn_right")
-
 
 func _on_BulletDelay_timeout():
 	is_shooting = false
+
+
+func _on_CollisionArea_area_entered(area):
+	health -= area.damage
+	$HitAnimationPlayer.play("hurt")
+	area.queue_free()
