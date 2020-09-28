@@ -3,8 +3,7 @@ extends "res://entities/Entity.gd"
 const BULLET = preload("res://bullets/cruiser_bullet/CruiserBullet.tscn")
 
 export (NodePath) var player_path = null
-var player = null
-var is_shooting = false
+var player
 
 onready var animation_tree = $CruiserRig/AnimationTree
 onready var animation_state = animation_tree.get("parameters/playback")
@@ -12,35 +11,41 @@ onready var animation_state = animation_tree.get("parameters/playback")
 
 func _ready():
 	player = get_node(player_path)
+	screen_size = get_viewport().get_visible_rect().size
 
 
-func _physics_process(delta):
-	_move()
-	if not is_shooting:
-		_fire()
+func _process(_delta):
+	_decide_on_actions()
 
 
-func _move():
-	var current_state = IDLE
-	var old_rotation = rotation
-	velocity = Vector2.ZERO
+func _integrate_forces(state):
+	_move(state)
+
+
+func _decide_on_actions():
+	var current_state = FORWARD
 	
 	if player:
 		var direction = position.direction_to(player.position)
-		velocity = direction * speed
-		rotation = stepify(direction.angle(), 0.001)
-	
-		if velocity.length() > 0:
-			current_state = FORWARD
+		thrust = Vector2(engine_thrust, 0)
 		
-		if old_rotation < rotation:
-			current_state = RIGHT
-		elif old_rotation > rotation:
+		if direction.angle() > rotation:
 			current_state = LEFT
+			rotation_direction = 1
+		elif direction.angle() < rotation:
+			current_state = RIGHT
+			rotation_direction = -1
+			
+		if not is_shooting:
+			_fire()
 	
 	animation_state.travel(state_strings[current_state])
+
+func _move(state):
+	set_applied_force(thrust.rotated(rotation))
+	set_applied_torque(rotation_direction * spin_thrust)	
 	
-	velocity = move_and_slide(velocity)
+	handle_out_of_bounds(state)
 
 
 func _fire():
@@ -50,15 +55,3 @@ func _fire():
 	get_parent().add_child(bullet)
 	is_shooting = true
 	$BulletDelay.start()
-
-
-func _on_CollisionArea_area_entered(area):
-	health -= area.damage
-	$HitAnimationPlayer.play("hurt")
-	area.queue_free()
-	if (health <= 0):
-		queue_free()
-
-
-func _on_BulletDelay_timeout():
-	is_shooting = false

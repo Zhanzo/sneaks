@@ -39,6 +39,7 @@ tracks/1/keys = {
 
 [node name="PlayerBullet" instance=ExtResource( 1 )]
 collision_layer = 4
+collision_mask = 2
 script = ExtResource( 2 )
 speed = 400
 damage = 1
@@ -53,7 +54,9 @@ rotation = 1.5708
 texture = ExtResource( 3 )
 vframes = 2
 hframes = 2
-frame = 3
+frame = 2
 
 [node name="AnimationPlayer" parent="." index="2"]
+autoplay = "idle"
 anims/idle = SubResource( 2 )
+[connection signal="body_entered" from="." to="." method="_on_PlayerBullet_body_entered"]

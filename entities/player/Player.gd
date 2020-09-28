@@ -2,25 +2,28 @@ extends "res://entities/Entity.gd"
 
 const BULLET = preload("res://bullets/player_bullet/PlayerBullet.tscn")
 
-var is_shooting = false
+export (int) var bullet_kickback = -50
 
 onready var animation_tree = $PlayerRig/AnimationTree
 onready var animation_state = animation_tree.get("parameters/playback")
 
 
-func _physics_process(delta):
+func _process(_delta):
 	_get_user_input()
-	_move(delta)
+	
+func _integrate_forces(state):
+	_move(state)
 
 
 func _get_user_input():
 	var current_state = IDLE
 	rotation_direction = 0
-	velocity = Vector2.ZERO
 	
 	if Input.is_action_pressed("ui_up"):
 		current_state = FORWARD
-		velocity = Vector2(1, 0).rotated(rotation) * speed
+		thrust = Vector2(engine_thrust, 0)
+	else:
+		thrust = Vector2.ZERO
 	
 	if Input.is_action_pressed("ui_right"):
 		current_state = RIGHT
@@ -36,6 +39,9 @@ func _get_user_input():
 
 
 func _fire_bullet():
+	# kickback the player when firing a bullet
+	apply_impulse(Vector2.ZERO, bullet_kickback * Vector2(cos(rotation), sin(rotation)))
+	
 	var bullet = BULLET.instance()
 	bullet.global_position = $BulletSpawn.global_position
 	bullet.rotation = rotation
@@ -44,21 +50,8 @@ func _fire_bullet():
 	$BulletDelay.start()
 
 
-func _move(delta):
-	rotation += rotation_direction * rotation_speed * delta
-	velocity = move_and_slide(velocity)
+func _move(state):
+	set_applied_force(thrust.rotated(rotation))
+	set_applied_torque(rotation_direction * spin_thrust)
 	
-	# clamp the player within the viewport
-	var 	viewport_rect = get_viewport_rect()
-	position.x = clamp(position.x, viewport_rect.position.x, viewport_rect.end.x - 1)
-	position.y = clamp(position.y, viewport_rect.position.y, viewport_rect.end.y - 1)
-
-
-func _on_BulletDelay_timeout():
-	is_shooting = false
-
-
-func _on_CollisionArea_area_entered(area):
-	health -= area.damage
-	$HitAnimationPlayer.play("hurt")
-	area.queue_free()
+	handle_out_of_bounds(state)

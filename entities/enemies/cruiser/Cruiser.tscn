@@ -1,15 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://entities/enemies/cruiser/Cruiser.gd" type="Script" id=1]
 [ext_resource path="res://entities/enemies/cruiser/CruiserRig.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/Entity.tscn" type="PackedScene" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8.5, 17.5 )
-
 [sub_resource type="Animation" id=3]
 resource_name = "hurt"
-length = 0.4
+length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
@@ -17,43 +14,36 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
+"times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ Color( 1, 1, 1, 1 ), Color( 10, 10, 10, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 8, 8 )
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 9, 17 )
 
 [node name="Cruiser" instance=ExtResource( 3 )]
-scale = Vector2( 2, 2 )
 collision_layer = 2
 collision_mask = 3
+gravity_scale = 0.0
+linear_damp = 1.0
+angular_damp = 5.0
 script = ExtResource( 1 )
 health = 3
-speed = 100
+engine_thrust = 100
+spin_thrust = 2000
 
 [node name="CruiserRig" parent="." index="0" instance=ExtResource( 2 )]
 
-[node name="CollisionShape2D" parent="." index="1"]
-position = Vector2( -0.25, 0.25 )
-shape = SubResource( 1 )
-
-[node name="HitAnimationPlayer" parent="." index="2"]
+[node name="HitAnimationPlayer" parent="." index="1"]
 anims/hurt = SubResource( 3 )
 
-[node name="CollisionArea" type="Area2D" parent="." index="3"]
-collision_layer = 0
-collision_mask = 4
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource( 5 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea" index="0"]
-shape = SubResource( 4 )
-
-[node name="BulletSpawn" type="Position2D" parent="." index="4"]
+[node name="BulletSpawn" parent="." index="3"]
 position = Vector2( 10, 0 )
 
-[node name="BulletDelay" type="Timer" parent="." index="5"]
-one_shot = true
-[connection signal="area_entered" from="CollisionArea" to="." method="_on_CollisionArea_area_entered"]
-[connection signal="timeout" from="BulletDelay" to="." method="_on_BulletDelay_timeout"]
+[node name="BulletDelay" parent="." index="4"]
+wait_time = 0.5
