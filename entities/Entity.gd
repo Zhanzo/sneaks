@@ -7,3 +7,12 @@ export (float) var rotation_speed = 0
 
 var velocity = Vector2.ZERO
 var rotation_direction = 0
+
+enum {IDLE, FORWARD, LEFT, RIGHT};
+
+var state_strings = {
+	IDLE: "idle",
+	FORWARD: "forward",
+	LEFT: "left",
+	RIGHT: "right",
+}

@@ -14,19 +14,22 @@ func _physics_process(delta):
 
 
 func _get_user_input():
+	var current_state = IDLE
 	rotation_direction = 0
 	velocity = Vector2.ZERO
 	
+	if Input.is_action_pressed("ui_up"):
+		current_state = FORWARD
+		velocity = Vector2(1, 0).rotated(rotation) * speed
+	
 	if Input.is_action_pressed("ui_right"):
+		current_state = RIGHT
 		rotation_direction += 1
 	if Input.is_action_pressed("ui_left"):
+		current_state = LEFT
 		rotation_direction -= 1
 	
-	if Input.is_action_pressed("ui_up"):
-		animation_state.travel("forward")
-		velocity = Vector2(1, 0).rotated(rotation) * speed
-	else:
-		animation_state.travel("idle")
+	animation_state.travel(state_strings[current_state])
 	
 	if Input.is_action_pressed("ui_select") and not is_shooting:
 		_fire_bullet()

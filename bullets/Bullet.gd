@@ -5,6 +5,7 @@ export var damage = 0
 
 var velocity = Vector2.ZERO
 
+
 func _process(delta):
 	_move_bullet(delta)
 	_remove_if_off_screen()
@@ -12,6 +13,7 @@ func _process(delta):
 func _move_bullet(delta):
 	velocity = Vector2(1, 0).rotated(rotation) * speed
 	position += velocity * delta
+
 
 func _remove_if_off_screen():
 	var 	viewport_rect = get_viewport_rect()
