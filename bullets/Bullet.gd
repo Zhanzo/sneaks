@@ -1,22 +1,20 @@
 extends Area2D
+class_name Bullet
 
-export var speed = 0
-export var damage = 0
+export var _speed: int
+export var _damage: int
 
-var velocity = Vector2.ZERO
-
-
-func _process(delta):
-	_move_bullet(delta)
-	_remove_if_off_screen()
-
-func _move_bullet(delta):
-	velocity = Vector2(1, 0).rotated(rotation) * speed
-	position += velocity * delta
+var _velocity: Vector2 = Vector2.ZERO
 
 
-func _remove_if_off_screen():
-	var 	viewport_rect = get_viewport_rect()
-	if position.x < viewport_rect.position.x or position.x > viewport_rect.end.x or \
-	   position.y < viewport_rect.position.y or position.y > viewport_rect.end.y:
-		queue_free()
+func _process(delta: float) -> void:
+	_move(delta)
+
+
+func _move(delta: float) -> void:
+	_velocity = Vector2(1, 0).rotated(rotation) * _speed
+	position += _velocity * delta
+
+
+func _on_VisibilityNotifier2D_screen_exited() -> void:
+	queue_free()

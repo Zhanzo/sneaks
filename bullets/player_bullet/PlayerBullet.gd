@@ -1,9 +1,7 @@
-extends "res://bullets/Bullet.gd"
+extends Bullet
+class_name PlayerBullet
 
 
-func _on_PlayerBullet_body_entered(body):
-	body.health -= damage
-	body.get_node("HitAnimationPlayer").play("hurt")
-	if body.health <= 0:
-		body.queue_free()
+func _on_PlayerBullet_body_entered(body: PhysicsBody2D) -> void:
+	body.hurt(_damage)
 	queue_free()

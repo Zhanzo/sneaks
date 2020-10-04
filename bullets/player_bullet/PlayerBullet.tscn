@@ -41,8 +41,8 @@ tracks/1/keys = {
 collision_layer = 4
 collision_mask = 2
 script = ExtResource( 2 )
-speed = 400
-damage = 1
+_speed = 300
+_damage = 1
 
 [node name="CollisionShape2D" parent="." index="0"]
 rotation = 1.5708
@@ -59,4 +59,8 @@ frame = 2
 [node name="AnimationPlayer" parent="." index="2"]
 autoplay = "idle"
 anims/idle = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" parent="." index="3"]
+position = Vector2( 0, 2.38419e-07 )
+scale = Vector2( 0.8, 0.4 )
 [connection signal="body_entered" from="." to="." method="_on_PlayerBullet_body_entered"]

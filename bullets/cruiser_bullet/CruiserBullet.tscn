@@ -40,8 +40,8 @@ tracks/1/keys = {
 collision_layer = 8
 collision_mask = 1
 script = ExtResource( 3 )
-speed = 200
-damage = 1
+_speed = 200
+_damage = 1
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource( 1 )
@@ -56,4 +56,8 @@ frame = 1
 
 [node name="AnimationPlayer" parent="." index="2"]
 anims/idle = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" parent="." index="3"]
+position = Vector2( 0, 4.17233e-07 )
+scale = Vector2( 0.8, 0.8 )
 [connection signal="body_entered" from="." to="." method="_on_CruiserBullet_body_entered"]

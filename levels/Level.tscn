@@ -13,7 +13,16 @@ centered = false
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 640, 360 )
+_health = 3
+_damage = 1
+_engine_thrust = 200
+_spin_thrust = 1000
+_bullet_kickback = 25
 
 [node name="Cruiser" parent="." instance=ExtResource( 3 )]
 position = Vector2( 120, 48 )
-player_path = NodePath("../Player")
+_health = 3
+_damage = 1
+_engine_thrust = 100
+_spin_thrust = 1000
+_player_path = NodePath("../Player")

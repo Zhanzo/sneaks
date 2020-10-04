@@ -300,7 +300,7 @@ tracks/11/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=3]
 resource_name = "left"
 length = 0.1
 tracks/0/type = "value"
@@ -352,7 +352,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=4]
 resource_name = "right"
 length = 0.1
 tracks/0/type = "value"
@@ -404,22 +404,28 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=3]
+[sub_resource type="AnimationNodeAnimation" id=5]
 animation = "forward"
 
-[sub_resource type="AnimationNodeAnimation" id=4]
+[sub_resource type="AnimationNodeAnimation" id=6]
 animation = "idle"
 
-[sub_resource type="AnimationNodeAnimation" id=11]
+[sub_resource type="AnimationNodeAnimation" id=7]
 animation = "left"
 
-[sub_resource type="AnimationNodeAnimation" id=12]
+[sub_resource type="AnimationNodeAnimation" id=8]
 animation = "right"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=5]
+[sub_resource type="AnimationNodeStateMachineTransition" id=9]
 xfade_time = 0.1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=6]
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
 xfade_time = 0.1
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=13]
@@ -440,25 +446,19 @@ xfade_time = 0.1
 [sub_resource type="AnimationNodeStateMachineTransition" id=18]
 xfade_time = 0.1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=19]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=20]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachine" id=7]
-states/forward/node = SubResource( 3 )
+[sub_resource type="AnimationNodeStateMachine" id=19]
+states/forward/node = SubResource( 5 )
 states/forward/position = Vector2( 741, 131.125 )
-states/idle/node = SubResource( 4 )
+states/idle/node = SubResource( 6 )
 states/idle/position = Vector2( 111, 128.922 )
-states/left/node = SubResource( 11 )
+states/left/node = SubResource( 7 )
 states/left/position = Vector2( 515.5, 31.5 )
-states/right/node = SubResource( 12 )
+states/right/node = SubResource( 8 )
 states/right/position = Vector2( 520.75, 235.5 )
-transitions = [ "idle", "forward", SubResource( 5 ), "forward", "idle", SubResource( 6 ), "idle", "left", SubResource( 13 ), "idle", "right", SubResource( 14 ), "left", "idle", SubResource( 15 ), "right", "idle", SubResource( 16 ), "left", "forward", SubResource( 17 ), "forward", "left", SubResource( 18 ), "right", "forward", SubResource( 19 ), "forward", "right", SubResource( 20 ) ]
+transitions = [ "idle", "forward", SubResource( 9 ), "forward", "idle", SubResource( 10 ), "idle", "left", SubResource( 11 ), "idle", "right", SubResource( 12 ), "left", "idle", SubResource( 13 ), "right", "idle", SubResource( 14 ), "left", "forward", SubResource( 15 ), "forward", "left", SubResource( 16 ), "right", "forward", SubResource( 17 ), "forward", "right", SubResource( 18 ) ]
 start_node = "idle"
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=8]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=20]
 
 [node name="PlayerRig" type="Node2D"]
 
@@ -500,11 +500,11 @@ region_rect = Rect2( 455, 85, 110, 105 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/forward = SubResource( 1 )
 anims/idle = SubResource( 2 )
-anims/left = SubResource( 9 )
-anims/right = SubResource( 10 )
+anims/left = SubResource( 3 )
+anims/right = SubResource( 4 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 7 )
+tree_root = SubResource( 19 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 8 )
+parameters/playback = SubResource( 20 )

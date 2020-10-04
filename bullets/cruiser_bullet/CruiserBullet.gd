@@ -1,11 +1,7 @@
-extends "res://bullets/Bullet.gd"
+extends Bullet
+class_name CruiserBullet
 
 
-func _ready():
-	$AnimationPlayer.play("idle")
-
-
-func _on_CruiserBullet_body_entered(body):
-	body.health -= damage
-	body.get_node("HitAnimationPlayer").play("hurt")
+func _on_CruiserBullet_body_entered(body: PhysicsBody2D) -> void:
+	body.hurt(_damage)
 	queue_free()
