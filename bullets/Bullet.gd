@@ -6,6 +6,11 @@ export var _damage: int
 
 var _velocity: Vector2 = Vector2.ZERO
 
+onready var death_timer : Timer = $DeathTimer
+onready var explosion : Particles2D = $Explosion
+onready var collision_shape : CollisionShape2D = $CollisionShape2D
+onready var sprite : Sprite = $Sprite
+
 
 func _process(delta: float) -> void:
 	_move(delta)
@@ -16,5 +21,26 @@ func _move(delta: float) -> void:
 	position += _velocity * delta
 
 
+func _explode() -> void:
+	death_timer.start()
+	explosion.emitting = true
+	sprite.visible = false
+	collision_shape.set_deferred("disabled", true)
+	_speed = 0
+
+
 func _on_VisibilityNotifier2D_screen_exited() -> void:
+	queue_free()
+
+
+func _on_Bullet_body_entered(body : Entity) -> void:
+	body.hurt(_damage)
+	_explode()
+
+
+func _on_Bullet_area_entered(area : Bullet) -> void:
+	_explode()
+
+
+func _on_DeathTimer_timeout():
 	queue_free()
