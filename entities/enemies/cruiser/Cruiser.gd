@@ -6,6 +6,7 @@ const _BULLET: PackedScene = preload("res://bullets/cruiser_bullet/CruiserBullet
 export var _player_path: NodePath
 var _player: Player
 
+onready var _bullet_spawn: Position2D = $BulletSpawn
 onready var _animation_tree: AnimationTree = $CruiserRig/AnimationTree
 onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tree.get(
 	"parameters/playback"

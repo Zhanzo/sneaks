@@ -28,6 +28,7 @@ _damage = 1
 _engine_thrust = 300
 _spin_thrust = 2000
 _trauma = 0.8
+_fire_rate = 0.1
 _bullet_kickback = 30
 
 [node name="Cruiser" parent="." instance=ExtResource( 3 )]
@@ -37,6 +38,7 @@ _damage = 1
 _engine_thrust = 100
 _spin_thrust = 1000
 _trauma = 0.2
+_fire_rate = 1.0
 _player_path = NodePath("../Player")
 [connection signal="is_hit" from="Player" to="." method="_on_Player_is_hit"]
 [connection signal="is_hit" from="Cruiser" to="." method="_on_Enemy_is_hit"]

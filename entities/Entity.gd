@@ -8,6 +8,7 @@ export var _damage: int
 export var _engine_thrust: int
 export var _spin_thrust: int
 export var _trauma: float
+export var _fire_rate: float
 
 var _thrust: Vector2 = Vector2.ZERO
 var _rotation_direction: int = 0
@@ -26,7 +27,6 @@ var state_strings = {
 
 onready var _hit_animation_player: AnimationPlayer = $HitAnimationPlayer
 onready var _bullet_delay: Timer = $BulletDelay
-onready var _bullet_spawn: Position2D = $BulletSpawn
 
 
 func hurt(damage_taken: int) -> void:
@@ -35,6 +35,7 @@ func hurt(damage_taken: int) -> void:
 
 func _ready() -> void:
 	_screen_size = get_viewport().get_visible_rect().size
+	_bullet_delay.wait_time = _fire_rate
 
 
 func _move(state: Physics2DDirectBodyState) -> void:

@@ -51,7 +51,7 @@ radial_accel = 3.0
 collision_layer = 4
 collision_mask = 10
 script = ExtResource( 2 )
-_speed = 300
+_speed = 400
 _damage = 1
 
 [node name="CollisionShape2D" parent="." index="0"]

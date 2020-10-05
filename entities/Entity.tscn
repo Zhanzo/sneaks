@@ -9,7 +9,5 @@ script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-[node name="BulletSpawn" type="Position2D" parent="."]
-
 [node name="BulletDelay" type="Timer" parent="."]
 [connection signal="timeout" from="BulletDelay" to="." method="_on_BulletDelay_timeout"]

@@ -12,7 +12,7 @@ onready var collision_shape : CollisionShape2D = $CollisionShape2D
 onready var sprite : Sprite = $Sprite
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	_move(delta)
 
 
@@ -38,7 +38,7 @@ func _on_Bullet_body_entered(body : Entity) -> void:
 	_explode()
 
 
-func _on_Bullet_area_entered(area : Bullet) -> void:
+func _on_Bullet_area_entered(_area : Bullet) -> void:
 	_explode()
 
 

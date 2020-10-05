@@ -5,6 +5,8 @@ const _BULLET: PackedScene = preload("res://bullets/player_bullet/PlayerBullet.t
 
 export var _bullet_kickback: int
 
+onready var _bullet_spawn : Position2D = $PlayerRig/Body/RightCannon/BulletSpawn
+onready var _bullet_spawn2 : Position2D = $PlayerRig/Body/RightCannon/BulletSpawn2
 onready var _animation_tree: AnimationTree = $PlayerRig/AnimationTree
 onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tree.get(
 	"parameters/playback"
@@ -52,9 +54,15 @@ func _fire() -> void:
 	# kickback the player when firing a bullet
 	apply_impulse(Vector2.ZERO, -_bullet_kickback * Vector2(cos(rotation), sin(rotation)))
 
-	var bullet: PlayerBullet = _BULLET.instance()
-	bullet.global_position = _bullet_spawn.global_position
-	bullet.rotation = rotation
-	get_parent().add_child(bullet)
+	var bullet1: PlayerBullet = _BULLET.instance()
+	bullet1.global_position = _bullet_spawn.global_position
+	bullet1.rotation = rotation
+	get_parent().add_child(bullet1)
+	
+	var bullet2: PlayerBullet = _BULLET.instance()
+	bullet2.global_position = _bullet_spawn2.global_position
+	bullet2.rotation = rotation
+	get_parent().add_child(bullet2)
+	
 	_is_shooting = true
 	_bullet_delay.start()
