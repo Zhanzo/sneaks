@@ -15,6 +15,7 @@ onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tre
 func hurt(damage_taken: int) -> void:
 	_health -= damage_taken
 	_hit_animation_player.play("hurt")
+	emit_signal("is_hit", _trauma)
 	if _health <= 0:
 		queue_free()
 

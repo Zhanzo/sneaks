@@ -42,5 +42,5 @@ func _on_Bullet_area_entered(area : Bullet) -> void:
 	_explode()
 
 
-func _on_DeathTimer_timeout():
+func _on_DeathTimer_timeout() -> void:
 	queue_free()

@@ -1,10 +1,13 @@
 extends RigidBody2D
 class_name Entity
 
+signal is_hit(trauma)
+
 export var _health: int
 export var _damage: int
 export var _engine_thrust: int
 export var _spin_thrust: int
+export var _trauma: float
 
 var _thrust: Vector2 = Vector2.ZERO
 var _rotation_direction: int = 0

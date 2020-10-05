@@ -1,15 +1,25 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://levels/desert-backgorund.png" type="Texture" id=1]
 [ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/enemies/cruiser/Cruiser.tscn" type="PackedScene" id=3]
+[ext_resource path="res://camera/Camera.tscn" type="PackedScene" id=4]
+[ext_resource path="res://levels/Level.gd" type="Script" id=5]
 
 [node name="Level" type="Node2D"]
+script = ExtResource( 5 )
 
 [node name="Background" type="Sprite" parent="."]
 scale = Vector2( 4, 2.20588 )
 texture = ExtResource( 1 )
 centered = false
+
+[node name="Camera" parent="." instance=ExtResource( 4 )]
+anchor_mode = 0
+current = true
+_decay = 1.0
+_max_offset = Vector2( 100, 75 )
+_max_roll = 0.1
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 640, 360 )
@@ -17,12 +27,16 @@ _health = 3
 _damage = 1
 _engine_thrust = 300
 _spin_thrust = 2000
+_trauma = 0.8
 _bullet_kickback = 30
 
 [node name="Cruiser" parent="." instance=ExtResource( 3 )]
 position = Vector2( 120, 48 )
-_health = 3
+_health = 5
 _damage = 1
 _engine_thrust = 100
 _spin_thrust = 1000
+_trauma = 0.2
 _player_path = NodePath("../Player")
+[connection signal="is_hit" from="Player" to="." method="_on_Player_is_hit"]
+[connection signal="is_hit" from="Cruiser" to="." method="_on_Enemy_is_hit"]
