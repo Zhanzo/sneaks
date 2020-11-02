@@ -23,7 +23,6 @@ func hurt(damage_taken: int) -> void:
 
 func _ready() -> void:
 	_player = get_node(_player_path)
-	_screen_size = get_viewport().get_visible_rect().size
 
 
 func _process(_delta: float) -> void:

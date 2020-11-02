@@ -14,7 +14,7 @@ var _thrust: Vector2 = Vector2.ZERO
 var _rotation_direction: int = 0
 var _is_shooting: bool = false
 
-var _screen_size: Vector2
+var level_size: Rect2
 
 enum { IDLE, FORWARD, LEFT, RIGHT }
 
@@ -34,7 +34,6 @@ func hurt(damage_taken: int) -> void:
 
 
 func _ready() -> void:
-	_screen_size = get_viewport().get_visible_rect().size
 	_bullet_delay.wait_time = _fire_rate
 
 
@@ -51,14 +50,8 @@ func _fire_bullet() -> void:
 
 func _handle_out_of_bounds(state: Physics2DDirectBodyState) -> void:
 	var xform: Transform2D = state.get_transform()
-	if xform.origin.x > _screen_size.x:
-		xform.origin.x = 0
-	if xform.origin.x < 0:
-		xform.origin.x = _screen_size.x
-	if xform.origin.y > _screen_size.y:
-		xform.origin.y = 0
-	if xform.origin.y < 0:
-		xform.origin.y = _screen_size.y
+	xform.origin.x = clamp(xform.origin.x, level_size.position.x, level_size.end.x)
+	xform.origin.y = clamp(xform.origin.y, level_size.position.y, level_size.end.y)
 	state.set_transform(xform)
 
 

@@ -10,7 +10,6 @@ var _noise_y : int = 0
 
 onready var _noise : OpenSimplexNoise = OpenSimplexNoise.new()
 
-
 func add_trauma(amount : float) -> void:
 	_trauma = min(_trauma + amount, 1.0)
 
@@ -32,5 +31,6 @@ func _shake() -> void:
 	var amount = pow(_trauma, _trauma_power)
 	_noise_y += 1
 	rotation = _max_roll * amount * _noise.get_noise_2d(_noise.seed, _noise_y)
-	offset.x = _max_offset.x * amount * _noise.get_noise_2d(_noise.seed * 2, _noise_y)
-	offset.y = _max_offset.y * amount * _noise.get_noise_2d(_noise.seed * 3, _noise_y)
+	var offset_vector := Vector2(_max_offset.x * amount * _noise.get_noise_2d(_noise.seed * 2, _noise_y),
+	_max_offset.y * amount * _noise.get_noise_2d(_noise.seed * 3, _noise_y))
+	get_tree().get_root().global_canvas_transform.origin = offset_vector
