@@ -2,16 +2,22 @@ extends Entity
 class_name Player
 
 
-signal is_hit(trauma)
+signal is_hit(trauma, health)
+signal health_regained(health)
 
 const _BULLET: PackedScene = preload("res://bullets/player_bullet/PlayerBullet.tscn")
 
 export var _bullet_kickback: int
+export var _max_health: int
 
-onready var _bullet_spawn1 : Position2D = $PlayerRig/Body/RightCannon/BulletSpawn1
-onready var _bullet_spawn2 : Position2D = $PlayerRig/Body/RightCannon/BulletSpawn2
-onready var _exhaust1 : Particles2D = $PlayerRig/Body/LeftCannon/Exhaust1
-onready var _exhaust2 : Particles2D = $PlayerRig/Body/LeftCannon/Exhaust2
+var is_hit := false
+
+onready var _hit_timer := $HitTimer
+onready var _health_regen_timer := $HealthRegenTimer
+onready var _bullet_spawn1: Position2D = $PlayerRig/Body/RightCannon/BulletSpawn1
+onready var _bullet_spawn2: Position2D = $PlayerRig/Body/RightCannon/BulletSpawn2
+onready var _exhaust1: Particles2D = $PlayerRig/Body/LeftCannon/Exhaust1
+onready var _exhaust2: Particles2D = $PlayerRig/Body/LeftCannon/Exhaust2
 onready var _animation_tree: AnimationTree = $PlayerRig/AnimationTree
 onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tree.get(
 	"parameters/playback"
@@ -21,12 +27,18 @@ onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tre
 func hurt(damage_taken: int) -> void:
 	_health -= damage_taken
 	_hit_animation_player.play("hurt")
-	emit_signal("is_hit", _trauma)
+	emit_signal("is_hit", _trauma, _health)
+	_hit_timer.start()
+	is_hit = true
 	
 	# If the player's health reaches zero the game is over
 	if _health <= 0:
 		if get_tree().change_scene("res://menus/game_over_menu/GameOverMenu.tscn") != OK:
 			print("Error occured when switching scene")
+
+
+func _ready() -> void:
+	_health = _max_health
 
 
 func _process(_delta: float) -> void:
@@ -76,3 +88,14 @@ func _fire() -> void:
 	
 	_is_shooting = true
 	_bullet_delay.start()
+
+
+func _on_HitTimer_timeout() -> void:
+	is_hit = false
+	_health_regen_timer.start()
+
+func _on_HealthRegenTimer_timeout() -> void:
+	_health += 1
+	emit_signal("health_regained", _health)
+	if _health < _max_health and not is_hit:
+		_health_regen_timer.start()
