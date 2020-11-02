@@ -1,6 +1,9 @@
 extends Entity
 class_name Player
 
+
+signal is_hit(trauma)
+
 const _BULLET: PackedScene = preload("res://bullets/player_bullet/PlayerBullet.tscn")
 
 export var _bullet_kickback: int
@@ -19,6 +22,11 @@ func hurt(damage_taken: int) -> void:
 	_health -= damage_taken
 	_hit_animation_player.play("hurt")
 	emit_signal("is_hit", _trauma)
+	
+	# If the player's health reaches zero the game is over
+	if _health <= 0:
+		if get_tree().change_scene("res://menus/game_over_menu/GameOverMenu.tscn") != OK:
+			print("Error occured when switching scene")
 
 
 func _process(_delta: float) -> void:

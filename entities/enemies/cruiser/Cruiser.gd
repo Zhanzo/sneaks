@@ -1,6 +1,9 @@
 extends Entity
 class_name Cruiser
 
+
+signal is_hit(trauma)
+
 const _BULLET: PackedScene = preload("res://bullets/cruiser_bullet/CruiserBullet.tscn")
 
 export var _player_path: NodePath

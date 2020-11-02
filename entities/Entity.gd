@@ -1,7 +1,7 @@
 extends RigidBody2D
 class_name Entity
 
-signal is_hit(trauma)
+
 
 export var _health: int
 export var _damage: int
@@ -27,10 +27,6 @@ var state_strings = {
 
 onready var _hit_animation_player: AnimationPlayer = $HitAnimationPlayer
 onready var _bullet_delay: Timer = $BulletDelay
-
-
-func hurt(damage_taken: int) -> void:
-	pass
 
 
 func _ready() -> void:
