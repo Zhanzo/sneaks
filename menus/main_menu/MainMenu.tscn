@@ -7,7 +7,6 @@
 [sub_resource type="DynamicFont" id=1]
 size = 200
 use_filter = true
-extra_spacing_bottom = 50
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=2]
@@ -15,14 +14,10 @@ size = 100
 use_filter = true
 font_data = ExtResource( 2 )
 
-[node name="MainMenu" type="MarginContainer"]
+[node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/margin_top = 50
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )
@@ -31,25 +26,30 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 1024, 600 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_top = 50.0
-margin_right = 1024.0
-margin_bottom = 600.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TitleLabel" type="Label" parent="VBoxContainer"]
 margin_left = 190.0
+margin_top = 79.0
 margin_right = 833.0
-margin_bottom = 260.0
+margin_bottom = 289.0
 size_flags_horizontal = 4
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0.819608, 0, 1 )
 text = "Sneaks"
 align = 1
+valign = 1
 
 [node name="PlayButton" type="Button" parent="VBoxContainer"]
 margin_left = 277.0
-margin_top = 264.0
+margin_top = 293.0
 margin_right = 747.0
-margin_bottom = 376.0
+margin_bottom = 405.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 2 )
@@ -61,9 +61,9 @@ flat = true
 
 [node name="ExitButton" type="Button" parent="VBoxContainer"]
 margin_left = 284.0
-margin_top = 380.0
+margin_top = 409.0
 margin_right = 739.0
-margin_bottom = 492.0
+margin_bottom = 521.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 2 )
