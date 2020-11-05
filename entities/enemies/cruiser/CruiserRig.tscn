@@ -1,9 +1,9 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://entities/enemies/enemies.png" type="Texture" id=1]
+[ext_resource path="res://entities/enemies/EnemyExhaust.tres" type="Material" id=2]
 
-[sub_resource type="Animation" id=1]
-resource_name = "forward"
+[sub_resource type="Animation" id=3]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body/Middle:position")
@@ -77,9 +77,32 @@ tracks/5/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Body/Exhaust1:lifetime")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Body/Exhaust2:lifetime")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
 
-[sub_resource type="Animation" id=2]
-resource_name = "idle"
+[sub_resource type="Animation" id=4]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body/Middle:position")
@@ -177,9 +200,32 @@ tracks/7/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
+tracks/8/type = "value"
+tracks/8/path = NodePath("Body/Exhaust1:lifetime")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.2 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Body/Exhaust2:lifetime")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.2 ]
+}
 
-[sub_resource type="Animation" id=3]
-resource_name = "left"
+[sub_resource type="Animation" id=5]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body/Middle:position")
@@ -253,9 +299,32 @@ tracks/5/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Body/Exhaust1:lifetime")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Body/Exhaust2:lifetime")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.2 ]
+}
 
-[sub_resource type="Animation" id=4]
-resource_name = "right"
+[sub_resource type="Animation" id=6]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body/Middle:position")
@@ -329,62 +398,80 @@ tracks/5/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Body/Exhaust1:lifetime")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.2 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Body/Exhaust2:lifetime")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
 
-[sub_resource type="AnimationNodeAnimation" id=5]
-animation = "forward"
-
-[sub_resource type="AnimationNodeAnimation" id=6]
-animation = "idle"
-
-[sub_resource type="AnimationNodeAnimation" id=7]
+[sub_resource type="AnimationNodeAnimation" id=30]
 animation = "left"
 
-[sub_resource type="AnimationNodeAnimation" id=8]
+[sub_resource type="AnimationNodeAnimation" id=31]
 animation = "right"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+[sub_resource type="AnimationNodeAnimation" id=32]
+animation = "forward"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=23]
+blend_point_0/node = SubResource( 30 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 31 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 32 )
+blend_point_2/pos = Vector2( 0, 1 )
+
+[sub_resource type="AnimationNodeAnimation" id=27]
+animation = "left"
+
+[sub_resource type="AnimationNodeAnimation" id=28]
+animation = "right"
+
+[sub_resource type="AnimationNodeAnimation" id=29]
+animation = "idle"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=24]
+blend_point_0/node = SubResource( 27 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 28 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 29 )
+blend_point_2/pos = Vector2( 0, 1 )
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
 xfade_time = 0.1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+[sub_resource type="AnimationNodeStateMachineTransition" id=26]
 xfade_time = 0.1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=11]
-xfade_time = 0.1
+[sub_resource type="AnimationNodeStateMachine" id=21]
+states/Forward/node = SubResource( 23 )
+states/Forward/position = Vector2( 356.5, 69.75 )
+states/Idle/node = SubResource( 24 )
+states/Idle/position = Vector2( 124.5, 70.5 )
+transitions = [ "Idle", "Forward", SubResource( 25 ), "Forward", "Idle", SubResource( 26 ) ]
+start_node = "Idle"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=12]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=13]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=14]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=15]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=16]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=17]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=18]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachine" id=19]
-states/forward/node = SubResource( 5 )
-states/forward/position = Vector2( 591.5, 107.5 )
-states/idle/node = SubResource( 6 )
-states/idle/position = Vector2( 147, 102.5 )
-states/left/node = SubResource( 7 )
-states/left/position = Vector2( 424, 31.5 )
-states/right/node = SubResource( 8 )
-states/right/position = Vector2( 423, 184.5 )
-transitions = [ "idle", "forward", SubResource( 9 ), "forward", "idle", SubResource( 10 ), "idle", "left", SubResource( 11 ), "left", "idle", SubResource( 12 ), "left", "forward", SubResource( 13 ), "forward", "left", SubResource( 14 ), "forward", "right", SubResource( 15 ), "right", "forward", SubResource( 16 ), "right", "idle", SubResource( 17 ), "idle", "right", SubResource( 18 ) ]
-start_node = "idle"
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=20]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=22]
 
 [node name="CruiserRig" type="Node2D"]
 
@@ -411,14 +498,28 @@ texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 450, 200, 100, 100 )
 
+[node name="Exhaust1" type="Particles2D" parent="Body"]
+position = Vector2( -100, 100 )
+amount = 200
+lifetime = 0.2
+process_material = ExtResource( 2 )
+
+[node name="Exhaust2" type="Particles2D" parent="Body"]
+position = Vector2( -100, -100 )
+amount = 200
+lifetime = 0.2
+process_material = ExtResource( 2 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/forward = SubResource( 1 )
-anims/idle = SubResource( 2 )
-anims/left = SubResource( 3 )
-anims/right = SubResource( 4 )
+anims/forward = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/left = SubResource( 5 )
+anims/right = SubResource( 6 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 19 )
+tree_root = SubResource( 21 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 20 )
+parameters/playback = SubResource( 22 )
+parameters/Forward/blend_position = Vector2( 0, 1 )
+parameters/Idle/blend_position = Vector2( 0, 1 )

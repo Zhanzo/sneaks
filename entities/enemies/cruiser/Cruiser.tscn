@@ -2,7 +2,7 @@
 
 [ext_resource path="res://entities/enemies/cruiser/Cruiser.gd" type="Script" id=1]
 [ext_resource path="res://entities/enemies/cruiser/CruiserRig.tscn" type="PackedScene" id=2]
-[ext_resource path="res://entities/Entity.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "hurt"
@@ -24,8 +24,6 @@ tracks/0/keys = {
 extents = Vector2( 9, 17 )
 
 [node name="Cruiser" instance=ExtResource( 3 )]
-collision_layer = 2
-collision_mask = 3
 gravity_scale = 0.0
 linear_damp = 1.0
 angular_damp = 5.0
@@ -39,5 +37,5 @@ anims/hurt = SubResource( 1 )
 [node name="CollisionShape2D" parent="." index="2"]
 shape = SubResource( 2 )
 
-[node name="BulletSpawn" type="Position2D" parent="." index="4"]
-position = Vector2( 12, 0 )
+[node name="BulletSpawn" parent="." index="4"]
+position = Vector2( 10, 0 )

@@ -1,31 +1,16 @@
-extends Entity
+extends Enemy
 class_name Cruiser
 
 
-signal is_hit(trauma)
-
-const _BULLET: PackedScene = preload("res://bullets/cruiser_bullet/CruiserBullet.tscn")
-
-export var _player_path: NodePath
-var _player: Player
-
-onready var _bullet_spawn: Position2D = $BulletSpawn
 onready var _animation_tree: AnimationTree = $CruiserRig/AnimationTree
 onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tree.get(
 	"parameters/playback"
 )
 
 
-func hurt(damage_taken: int) -> void:
-	_health -= damage_taken
-	_hit_animation_player.play("hurt")
-	emit_signal("is_hit", _trauma)
-	if _health <= 0:
-		queue_free()
-
-
 func _ready() -> void:
 	_player = get_node(_player_path)
+	_bullet_scene = preload("res://bullets/cruiser_bullet/CruiserBullet.tscn")
 
 
 func _process(_delta: float) -> void:
@@ -37,29 +22,28 @@ func _integrate_forces(state: Physics2DDirectBodyState) -> void:
 
 
 func _decide_on_actions() -> void:
-	var current_state = FORWARD
+	_rotation_direction = 0
 
 	if _player:
-		var direction: Vector2 = position.direction_to(_player.position)
+		# always move forward when player exists
 		_thrust = Vector2(_engine_thrust, 0)
-
+		
+		var direction: Vector2 = position.direction_to(_player.position)
+		
 		if direction.angle() > rotation:
-			current_state = LEFT
-			_rotation_direction = 1
+			_rotation_direction += 1
 		elif direction.angle() < rotation:
-			current_state = RIGHT
-			_rotation_direction = -1
+			_rotation_direction -= 1
+		
+		var blend_vector := Vector2(_rotation_direction, 1)
+		blend_vector = blend_vector.normalized()
+		
+		_animation_tree.set("parameters/Forward/blend_position", blend_vector)
+		_animation_state.travel("Forward")
 
 		if not _is_shooting:
-			_fire()
-
-	_animation_state.travel(state_strings[current_state])
-
-
-func _fire() -> void:
-	var bullet: CruiserBullet = _BULLET.instance()
-	bullet.global_position = _bullet_spawn.global_position
-	bullet.rotation = rotation
-	get_parent().add_child(bullet)
-	_is_shooting = true
-	_bullet_delay.start()
+			_fire_bullet()
+	else:
+		var blend_vector := Vector2(_rotation_direction, 1)
+		_animation_tree.set("parameters/Idle/blend_position", blend_vector)
+		_animation_state.travel("Idle")

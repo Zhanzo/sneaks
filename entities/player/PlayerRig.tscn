@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://entities/player/player.png" type="Texture" id=1]
 [ext_resource path="res://entities/player/PlayerExhaust.tres" type="Material" id=2]
@@ -6,7 +6,6 @@
 [sub_resource type="Animation" id=1]
 resource_name = "forward"
 length = 0.1
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body/RightCannon:position")
 tracks/0/interp = 1
@@ -89,7 +88,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 1.9 ]
+"values": [ 0.9 ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("Body/LeftCannon/Exhaust2:lifetime")
@@ -101,13 +100,12 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 2.0 ]
+"values": [ 1.0 ]
 }
 
 [sub_resource type="Animation" id=2]
 resource_name = "idle"
 length = 0.1
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body/RightCannon:position")
 tracks/0/interp = 1
@@ -190,7 +188,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.7 ]
+"values": [ 0.3 ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("Body/LeftCannon/Exhaust2:lifetime")
@@ -202,7 +200,7 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.8 ]
+"values": [ 0.4 ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -266,7 +264,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 2.0 ]
+"values": [ 1.0 ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("Body/LeftCannon/Exhaust1:lifetime")
@@ -278,7 +276,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.7 ]
+"values": [ 0.3 ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -342,7 +340,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 1.9 ]
+"values": [ 0.9 ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("Body/LeftCannon/Exhaust2:lifetime")
@@ -354,62 +352,56 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.8 ]
+"values": [ 0.4 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=5]
-animation = "forward"
-
-[sub_resource type="AnimationNodeAnimation" id=6]
-animation = "idle"
-
-[sub_resource type="AnimationNodeAnimation" id=7]
+[sub_resource type="AnimationNodeAnimation" id=25]
 animation = "left"
 
-[sub_resource type="AnimationNodeAnimation" id=8]
+[sub_resource type="AnimationNodeAnimation" id=26]
+animation = "forward"
+
+[sub_resource type="AnimationNodeAnimation" id=27]
 animation = "right"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+[sub_resource type="AnimationNodeBlendSpace2D" id=28]
+blend_point_0/node = SubResource( 25 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 26 )
+blend_point_1/pos = Vector2( 0, 1 )
+blend_point_2/node = SubResource( 27 )
+blend_point_2/pos = Vector2( 1, 0 )
+
+[sub_resource type="AnimationNodeAnimation" id=21]
+animation = "left"
+
+[sub_resource type="AnimationNodeAnimation" id=22]
+animation = "right"
+
+[sub_resource type="AnimationNodeAnimation" id=23]
+animation = "idle"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=24]
+blend_point_0/node = SubResource( 21 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 22 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 23 )
+blend_point_2/pos = Vector2( 0, 1 )
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=29]
 xfade_time = 0.1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=10]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=11]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=12]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=13]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=14]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=15]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=16]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=17]
-xfade_time = 0.1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
 xfade_time = 0.1
 
 [sub_resource type="AnimationNodeStateMachine" id=19]
-states/forward/node = SubResource( 5 )
-states/forward/position = Vector2( 741, 131.125 )
-states/idle/node = SubResource( 6 )
-states/idle/position = Vector2( 111, 128.922 )
-states/left/node = SubResource( 7 )
-states/left/position = Vector2( 515.5, 31.5 )
-states/right/node = SubResource( 8 )
-states/right/position = Vector2( 520.75, 235.5 )
-transitions = [ "idle", "forward", SubResource( 9 ), "forward", "idle", SubResource( 10 ), "idle", "left", SubResource( 11 ), "idle", "right", SubResource( 12 ), "left", "idle", SubResource( 13 ), "right", "idle", SubResource( 14 ), "left", "forward", SubResource( 15 ), "forward", "left", SubResource( 16 ), "right", "forward", SubResource( 17 ), "forward", "right", SubResource( 18 ) ]
-start_node = "idle"
+states/Forward/node = SubResource( 28 )
+states/Forward/position = Vector2( 494, 99.75 )
+states/Idle/node = SubResource( 24 )
+states/Idle/position = Vector2( 288.5, 101 )
+transitions = [ "Idle", "Forward", SubResource( 29 ), "Forward", "Idle", SubResource( 30 ) ]
+start_node = "Idle"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=20]
 
@@ -430,16 +422,14 @@ region_rect = Rect2( 160, 610, 110, 420 )
 
 [node name="Exhaust1" type="Particles2D" parent="Body/LeftCannon"]
 position = Vector2( -50, -135 )
-amount = 500
-lifetime = 0.7
-speed_scale = 2.0
+amount = 200
+lifetime = 0.3
 process_material = ExtResource( 2 )
 
 [node name="Exhaust2" type="Particles2D" parent="Body/LeftCannon"]
 position = Vector2( -23, 140 )
-amount = 500
-lifetime = 0.8
-speed_scale = 2.0
+amount = 200
+lifetime = 0.4
 process_material = ExtResource( 2 )
 
 [node name="RightCannon" type="Sprite" parent="Body"]
@@ -483,3 +473,5 @@ tree_root = SubResource( 19 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 20 )
+parameters/Forward/blend_position = Vector2( 0, 1 )
+parameters/Idle/blend_position = Vector2( 0, 1 )

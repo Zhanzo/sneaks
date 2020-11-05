@@ -39,7 +39,7 @@ func hurt(damage_taken: int) -> void:
 
 func _ready() -> void:
 	_health = _max_health
-
+	_bullet_scene = preload("res://bullets/player_bullet/PlayerBullet.tscn")
 
 func _process(_delta: float) -> void:
 	_get_user_input()
@@ -50,38 +50,35 @@ func _integrate_forces(state: Physics2DDirectBodyState) -> void:
 
 
 func _get_user_input() -> void:
-	var current_state = IDLE
-	_rotation_direction = 0
-
+	_rotation_direction =  Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	
+	# calculate which animation to play in the animation tree
+	var input_vector := Vector2(_rotation_direction, 1)
+	input_vector = input_vector.normalized()
+	
 	if Input.is_action_pressed("ui_up"):
-		current_state = FORWARD
+		_animation_tree.set("parameters/Forward/blend_position", input_vector)
+		_animation_state.travel("Forward")
 		_thrust = Vector2(_engine_thrust, 0)
 	else:
+		_animation_tree.set("parameters/Idle/blend_position", input_vector)
+		_animation_state.travel("Idle")
 		_thrust = Vector2.ZERO
 
-	if Input.is_action_pressed("ui_right"):
-		current_state = RIGHT
-		_rotation_direction += 1
-	if Input.is_action_pressed("ui_left"):
-		current_state = LEFT
-		_rotation_direction -= 1
-
-	_animation_state.travel(state_strings[current_state])
-
 	if Input.is_action_pressed("ui_select") and not _is_shooting:
-		_fire()
+		_fire_bullet()
 
 
-func _fire() -> void:
+func _fire_bullet() -> void:
 	# kickback the player when firing a bullet
 	apply_impulse(Vector2.ZERO, -_bullet_kickback * Vector2(cos(rotation), sin(rotation)))
 
-	var bullet1: PlayerBullet = _BULLET.instance()
+	var bullet1: PlayerBullet = _bullet_scene.instance()
 	bullet1.global_position = _bullet_spawn1.global_position
 	bullet1.rotation = rotation
 	get_parent().add_child(bullet1)
 	
-	var bullet2: PlayerBullet = _BULLET.instance()
+	var bullet2: PlayerBullet = _bullet_scene.instance()
 	bullet2.global_position = _bullet_spawn2.global_position
 	bullet2.rotation = rotation
 	get_parent().add_child(bullet2)

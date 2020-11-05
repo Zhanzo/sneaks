@@ -2,7 +2,6 @@ extends RigidBody2D
 class_name Entity
 
 
-
 export var _health: int
 export var _damage: int
 export var _engine_thrust: int
@@ -10,20 +9,12 @@ export var _spin_thrust: int
 export var _trauma: float
 export var _fire_rate: float
 
+var _bullet_scene: PackedScene
 var _thrust: Vector2 = Vector2.ZERO
 var _rotation_direction: int = 0
 var _is_shooting: bool = false
 
 var level_size: Rect2
-
-enum { IDLE, FORWARD, LEFT, RIGHT }
-
-var state_strings = {
-	IDLE: "idle",
-	FORWARD: "forward",
-	LEFT: "left",
-	RIGHT: "right",
-}
 
 onready var _hit_animation_player: AnimationPlayer = $HitAnimationPlayer
 onready var _bullet_delay: Timer = $BulletDelay
@@ -38,10 +29,6 @@ func _move(state: Physics2DDirectBodyState) -> void:
 	set_applied_torque(_rotation_direction * _spin_thrust)
 
 	_handle_out_of_bounds(state)
-
-
-func _fire_bullet() -> void:
-	pass
 
 
 func _handle_out_of_bounds(state: Physics2DDirectBodyState) -> void:
