@@ -2,22 +2,37 @@ extends Entity
 class_name Enemy
 
 signal is_hit(trauma)
+signal is_killed()
 
 export var _player_path: NodePath
 var _player: Player
 
 onready var _bullet_spawn: Position2D = $BulletSpawn
+onready var _death_timer: Timer = $DeathTimer
+
 
 func hurt(damage_taken: int) -> void:
 	_health -= damage_taken
-	_hit_animation_player.play("hurt")
-	emit_signal("is_hit", _trauma)
+	
 	if _health <= 0:
-		queue_free()
+		emit_signal("is_killed")
+		_explode()
+	else:
+		emit_signal("is_hit", _trauma)
+		_hit_animation_player.play("hurt")
 
 
 func _ready() -> void:
 	_player = get_node(_player_path)
+
+
+func _explode() -> void:
+	_death_timer.start()
+	_explosion.emitting = true
+	_collision_shape.set_deferred("disabled", true)
+	set_physics_process(false)
+	set_process(false)
+	sleeping = true
 
 
 func _fire_bullet() -> void:
@@ -27,3 +42,7 @@ func _fire_bullet() -> void:
 	get_parent().add_child(bullet)
 	_is_shooting = true
 	_bullet_delay.start()
+
+
+func _on_DeathTimer_timeout():
+	queue_free()

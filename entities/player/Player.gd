@@ -12,6 +12,7 @@ export var _max_health: int
 
 var is_hit := false
 
+onready var _death_timer := $DeathTimer
 onready var _hit_timer := $HitTimer
 onready var _health_regen_timer := $HealthRegenTimer
 onready var _bullet_spawn1: Position2D = $PlayerRig/Body/RightCannon/BulletSpawn1
@@ -33,20 +34,16 @@ func hurt(damage_taken: int) -> void:
 	
 	# If the player's health reaches zero the game is over
 	if _health <= 0:
-		if get_tree().change_scene("res://menus/game_over_menu/GameOverMenu.tscn") != OK:
-			print("Error occured when switching scene")
+		_explode()
 
 
 func _ready() -> void:
 	_health = _max_health
 	_bullet_scene = preload("res://bullets/player_bullet/PlayerBullet.tscn")
 
+
 func _process(_delta: float) -> void:
 	_get_user_input()
-
-
-func _integrate_forces(state: Physics2DDirectBodyState) -> void:
-	_move(state)
 
 
 func _get_user_input() -> void:
@@ -87,12 +84,27 @@ func _fire_bullet() -> void:
 	_bullet_delay.start()
 
 
+func _explode() -> void:
+	_death_timer.start()
+	_explosion.emitting = true
+	_collision_shape.set_deferred("disabled", true)
+	set_physics_process(false)
+	set_process(false)
+	sleeping = true
+
+
 func _on_HitTimer_timeout() -> void:
 	is_hit = false
 	_health_regen_timer.start()
+
 
 func _on_HealthRegenTimer_timeout() -> void:
 	_health += 1
 	emit_signal("health_regained", _health)
 	if _health < _max_health and not is_hit:
 		_health_regen_timer.start()
+
+
+func _on_DeathTimer_timeout():
+	if get_tree().change_scene("res://menus/game_over_menu/GameOverMenu.tscn") != OK:
+			print("Error occured when switching scene")

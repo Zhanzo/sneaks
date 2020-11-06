@@ -26,6 +26,7 @@ shader_param/activate_grayscale = null
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 5 )
+_freeze_delay = 20
 
 [node name="Background" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -124,7 +125,3 @@ __meta__ = {
 }
 [connection signal="health_regained" from="Player" to="." method="_on_Player_health_regained"]
 [connection signal="is_hit" from="Player" to="." method="_on_Player_is_hit"]
-[connection signal="is_hit" from="Enemies/Cruiser" to="." method="_on_Enemy_is_hit"]
-[connection signal="is_hit" from="Enemies/Cruiser2" to="." method="_on_Enemy_is_hit"]
-[connection signal="is_hit" from="Enemies/Cruiser3" to="." method="_on_Enemy_is_hit"]
-[connection signal="is_hit" from="Enemies/Cruiser4" to="." method="_on_Enemy_is_hit"]

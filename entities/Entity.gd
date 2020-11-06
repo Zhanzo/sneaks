@@ -16,12 +16,18 @@ var _is_shooting: bool = false
 
 var level_size: Rect2
 
+onready var _collision_shape: CollisionShape2D = $CollisionShape2D
 onready var _hit_animation_player: AnimationPlayer = $HitAnimationPlayer
 onready var _bullet_delay: Timer = $BulletDelay
+onready var _explosion: Particles2D = $Explosion
 
 
 func _ready() -> void:
 	_bullet_delay.wait_time = _fire_rate
+
+
+func _integrate_forces(state: Physics2DDirectBodyState) -> void:
+	_move(state)
 
 
 func _move(state: Physics2DDirectBodyState) -> void:

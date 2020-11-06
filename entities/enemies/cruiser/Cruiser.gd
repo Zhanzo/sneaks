@@ -2,6 +2,7 @@ extends Enemy
 class_name Cruiser
 
 
+onready var _rig: Node2D = $CruiserRig
 onready var _animation_tree: AnimationTree = $CruiserRig/AnimationTree
 onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tree.get(
 	"parameters/playback"
@@ -15,10 +16,6 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	_decide_on_actions()
-
-
-func _integrate_forces(state: Physics2DDirectBodyState) -> void:
-	_move(state)
 
 
 func _decide_on_actions() -> void:
@@ -47,3 +44,8 @@ func _decide_on_actions() -> void:
 		var blend_vector := Vector2(_rotation_direction, 1)
 		_animation_tree.set("parameters/Idle/blend_position", blend_vector)
 		_animation_state.travel("Idle")
+
+
+func _explode() -> void:
+	_rig.visible = false
+	._explode()

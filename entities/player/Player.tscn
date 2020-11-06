@@ -44,12 +44,16 @@ shape = SubResource( 2 )
 [node name="BulletDelay" parent="." index="3"]
 wait_time = 0.1
 
-[node name="HitTimer" type="Timer" parent="." index="4"]
+[node name="HitTimer" type="Timer" parent="." index="5"]
 wait_time = 5.0
 one_shot = true
 
-[node name="HealthRegenTimer" type="Timer" parent="." index="5"]
+[node name="HealthRegenTimer" type="Timer" parent="." index="6"]
 wait_time = 0.1
+one_shot = true
+
+[node name="DeathTimer" type="Timer" parent="." index="7"]
 one_shot = true
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
 [connection signal="timeout" from="HealthRegenTimer" to="." method="_on_HealthRegenTimer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]

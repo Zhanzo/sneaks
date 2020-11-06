@@ -6,10 +6,10 @@ export var _damage: int
 
 var _velocity: Vector2 = Vector2.ZERO
 
-onready var death_timer : Timer = $DeathTimer
-onready var explosion : Particles2D = $Explosion
-onready var collision_shape : CollisionShape2D = $CollisionShape2D
-onready var sprite : Sprite = $Sprite
+onready var death_timer: Timer = $DeathTimer
+onready var explosion: Particles2D = $Explosion
+onready var collision_shape: CollisionShape2D = $CollisionShape2D
+onready var sprite: Sprite = $Sprite
 
 
 func _physics_process(delta: float) -> void:
@@ -26,7 +26,7 @@ func _explode() -> void:
 	explosion.emitting = true
 	sprite.visible = false
 	collision_shape.set_deferred("disabled", true)
-	_speed = 0
+	set_physics_process(false)
 
 
 func _on_VisibilityNotifier2D_screen_exited() -> void:
