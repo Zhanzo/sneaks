@@ -1,2 +1,0 @@
-extends Bullet
-class_name CruiserBullet

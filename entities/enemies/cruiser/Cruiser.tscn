@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://entities/enemies/cruiser/Cruiser.gd" type="Script" id=1]
-[ext_resource path="res://entities/enemies/cruiser/CruiserRig.tscn" type="PackedScene" id=2]
+[ext_resource path="res://entities/enemies/cruiser/cruiser.gd" type="Script" id=1]
+[ext_resource path="res://entities/enemies/cruiser/cruiser_rig.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=3]
 
 [sub_resource type="Animation" id=1]

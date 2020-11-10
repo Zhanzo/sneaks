@@ -1,6 +1,5 @@
-extends Enemy
 class_name Cruiser
-
+extends Enemy
 
 onready var _rig: Node2D = $CruiserRig
 onready var _animation_tree: AnimationTree = $CruiserRig/AnimationTree
@@ -10,8 +9,7 @@ onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tre
 
 
 func _ready() -> void:
-	_player = get_node(_player_path)
-	_bullet_scene = preload("res://bullets/cruiser_bullet/CruiserBullet.tscn")
+	_bullet_scene = preload("res://bullets/cruiser_bullet/cruiser_bullet.tscn")
 
 
 func _process(_delta: float) -> void:
@@ -21,27 +19,27 @@ func _process(_delta: float) -> void:
 func _decide_on_actions() -> void:
 	_rotation_direction = 0
 
-	if _player:
+	if player:
 		# always move forward when player exists
-		_thrust = Vector2(_engine_thrust, 0)
-		
-		var direction: Vector2 = position.direction_to(_player.position)
-		
+		_thrust = Vector2(engine_thrust, 0)
+
+		var direction: Vector2 = position.direction_to(player.position)
+
 		if direction.angle() > rotation:
 			_rotation_direction += 1
 		elif direction.angle() < rotation:
 			_rotation_direction -= 1
-		
-		var blend_vector := Vector2(_rotation_direction, 1)
+
+		var blend_vector: Vector2 = Vector2(_rotation_direction, 1)
 		blend_vector = blend_vector.normalized()
-		
+
 		_animation_tree.set("parameters/Forward/blend_position", blend_vector)
 		_animation_state.travel("Forward")
 
 		if not _is_shooting:
 			_fire_bullet()
 	else:
-		var blend_vector := Vector2(_rotation_direction, 1)
+		var blend_vector: Vector2 = Vector2(_rotation_direction, 1)
 		_animation_tree.set("parameters/Idle/blend_position", blend_vector)
 		_animation_state.travel("Idle")
 

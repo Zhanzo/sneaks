@@ -1,20 +1,19 @@
-extends RigidBody2D
 class_name Entity
+extends RigidBody2D
 
+export var health: int
+export var damage: int
+export var engine_thrust: int
+export var spin_thrust: int
+export var trauma: float
+export var fire_rate: float
 
-export var _health: int
-export var _damage: int
-export var _engine_thrust: int
-export var _spin_thrust: int
-export var _trauma: float
-export var _fire_rate: float
+var level_size: Rect2
 
 var _bullet_scene: PackedScene
 var _thrust: Vector2 = Vector2.ZERO
 var _rotation_direction: int = 0
 var _is_shooting: bool = false
-
-var level_size: Rect2
 
 onready var _collision_shape: CollisionShape2D = $CollisionShape2D
 onready var _hit_animation_player: AnimationPlayer = $HitAnimationPlayer
@@ -23,7 +22,7 @@ onready var _explosion: Particles2D = $Explosion
 
 
 func _ready() -> void:
-	_bullet_delay.wait_time = _fire_rate
+	_bullet_delay.wait_time = fire_rate
 
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
@@ -32,7 +31,7 @@ func _integrate_forces(state: Physics2DDirectBodyState) -> void:
 
 func _move(state: Physics2DDirectBodyState) -> void:
 	set_applied_force(_thrust.rotated(rotation))
-	set_applied_torque(_rotation_direction * _spin_thrust)
+	set_applied_torque(_rotation_direction * spin_thrust)
 
 	_handle_out_of_bounds(state)
 

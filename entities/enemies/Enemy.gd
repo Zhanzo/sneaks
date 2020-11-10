@@ -1,29 +1,24 @@
-extends Entity
 class_name Enemy
+extends Entity
 
 signal is_hit(trauma)
-signal is_killed()
+signal is_killed
 
-export var _player_path: NodePath
-var _player: Player
+var player: Player
 
 onready var _bullet_spawn: Position2D = $BulletSpawn
 onready var _death_timer: Timer = $DeathTimer
 
 
 func hurt(damage_taken: int) -> void:
-	_health -= damage_taken
-	
-	if _health <= 0:
+	health -= damage_taken
+
+	if health <= 0:
 		emit_signal("is_killed")
 		_explode()
 	else:
-		emit_signal("is_hit", _trauma)
+		emit_signal("is_hit", trauma)
 		_hit_animation_player.play("hurt")
-
-
-func _ready() -> void:
-	_player = get_node(_player_path)
 
 
 func _explode() -> void:
