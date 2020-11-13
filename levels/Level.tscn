@@ -52,12 +52,7 @@ max_roll = 0.1
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 640, 360 )
-damage = 1
-engine_thrust = 400
-spin_thrust = 2000
 trauma = 0.8
-fire_rate = 0.1
-bullet_kickback = 30
 max_health = 20
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
@@ -67,39 +62,15 @@ remote_path = NodePath("../../Camera")
 
 [node name="Cruiser" parent="Enemies" instance=ExtResource( 3 )]
 position = Vector2( 120, 48 )
-health = 5
-damage = 1
-engine_thrust = 100
-spin_thrust = 1500
-trauma = 0.2
-fire_rate = 1.0
 
 [node name="Cruiser2" parent="Enemies" instance=ExtResource( 3 )]
 position = Vector2( 1677.41, 213.276 )
-health = 5
-damage = 1
-engine_thrust = 100
-spin_thrust = 1500
-trauma = 0.2
-fire_rate = 1.0
 
 [node name="Cruiser3" parent="Enemies" instance=ExtResource( 3 )]
 position = Vector2( 427.244, 916.76 )
-health = 5
-damage = 1
-engine_thrust = 100
-spin_thrust = 1500
-trauma = 0.2
-fire_rate = 1.0
 
 [node name="Cruiser4" parent="Enemies" instance=ExtResource( 3 )]
 position = Vector2( 1156.15, 880.738 )
-health = 5
-damage = 1
-engine_thrust = 100
-spin_thrust = 1500
-trauma = 0.2
-fire_rate = 1.0
 
 [node name="HUD" type="Control" parent="."]
 anchor_right = 1.0

@@ -27,13 +27,11 @@ func _explode() -> void:
 	_collision_shape.set_deferred("disabled", true)
 	set_physics_process(false)
 	set_process(false)
-	sleeping = true
 
 
 func _fire_bullet() -> void:
-	var bullet: Bullet = _bullet_scene.instance()
-	bullet.global_position = _bullet_spawn.global_position
-	bullet.rotation = rotation
+	var bullet: Bullet = bullet_scene.instance()
+	bullet.initialize(_bullet_spawn, rotation)
 	get_parent().add_child(bullet)
 	_is_shooting = true
 	_bullet_delay.start()

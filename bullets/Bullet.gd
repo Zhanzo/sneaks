@@ -1,7 +1,7 @@
 class_name Bullet
 extends Area2D
 
-var _speed: int = 300
+var _speed: int = 500
 var _damage: int = 1
 var _velocity: Vector2
 
@@ -14,6 +14,11 @@ onready var _sprite: Sprite = $Sprite
 func _physics_process(delta: float) -> void:
 	_velocity = Vector2(1, 0).rotated(rotation) * _speed
 	position += _velocity * delta
+
+
+func initialize(pos: Position2D, rot: float) -> void:
+	global_position = pos.global_position
+	rotation = rot
 
 
 func _explode() -> void:

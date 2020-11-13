@@ -26,11 +26,20 @@ onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tre
 
 func _ready() -> void:
 	health = max_health
-	_bullet_scene = preload("res://bullets/player_bullet/player_bullet.tscn")
 
 
 func _process(_delta: float) -> void:
 	_get_user_input()
+
+
+func _physics_process(delta: float) -> void:
+	_acceleration -= _velocity * friction
+	_velocity += _acceleration * delta
+	rotation += turn_speed * _rotation_direction * delta
+	
+	_handle_out_of_bounds()
+	
+	_velocity = move_and_slide(_velocity)
 
 
 func hurt(damage_taken: int) -> void:
@@ -58,11 +67,11 @@ func _get_user_input() -> void:
 	if Input.is_action_pressed("ui_up"):
 		_animation_tree.set("parameters/Forward/blend_position", input_vector)
 		_animation_state.travel("Forward")
-		_thrust = Vector2(engine_thrust, 0)
+		_acceleration = Vector2(speed, 0).rotated(rotation)
 	else:
 		_animation_tree.set("parameters/Idle/blend_position", input_vector)
 		_animation_state.travel("Idle")
-		_thrust = Vector2.ZERO
+		_acceleration = Vector2.ZERO
 
 	# shake the player whenever it presses down since the ship cannot
 	# travel backwards
@@ -75,16 +84,14 @@ func _get_user_input() -> void:
 
 func _fire_bullet() -> void:
 	# kickback the player when firing a bullet
-	apply_impulse(Vector2.ZERO, -bullet_kickback * Vector2(cos(rotation), sin(rotation)))
+	_acceleration -= Vector2(bullet_kickback, 0).rotated(rotation)
 
-	var bullet1: Bullet = _bullet_scene.instance()
-	bullet1.global_position = _bullet_spawn1.global_position
-	bullet1.rotation = rotation
+	var bullet1: Bullet = bullet_scene.instance()
+	bullet1.initialize(_bullet_spawn1, rotation)
 	get_parent().add_child(bullet1)
 
-	var bullet2: Bullet = _bullet_scene.instance()
-	bullet2.global_position = _bullet_spawn2.global_position
-	bullet2.rotation = rotation
+	var bullet2: Bullet = bullet_scene.instance()
+	bullet2.initialize(_bullet_spawn2, rotation)
 	get_parent().add_child(bullet2)
 
 	_is_shooting = true
@@ -98,7 +105,6 @@ func _explode() -> void:
 	_collision_shape.set_deferred("disabled", true)
 	set_physics_process(false)
 	set_process(false)
-	sleeping = true
 
 
 func _on_HitTimer_timeout() -> void:
