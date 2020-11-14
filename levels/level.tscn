@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://levels/space_background.jpg" type="Texture" id=1]
 [ext_resource path="res://entities/player/player.tscn" type="PackedScene" id=2]
@@ -6,10 +6,12 @@
 [ext_resource path="res://camera/camera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://levels/level.gd" type="Script" id=5]
 
+[sub_resource type="NavigationPolygon" id=1]
+vertices = PoolVector2Array( 0, 0, 2048, 0, 2048, 2048, 0, 2048 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( 0, 0, 2048, 0, 2048, 2048, 0, 2048 ) ]
 
-
-
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
 
 uniform bool activate_grayscale;
@@ -23,8 +25,8 @@ void fragment() {
 	
 }"
 
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
 shader_param/activate_grayscale = null
 
 [node name="Level" type="Node2D"]
@@ -35,20 +37,23 @@ player_grayscale_health = 5
 texture = ExtResource( 1 )
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 2000, 2000 )
+region_rect = Rect2( 0, 0, 2048, 2048 )
 region_filter_clip = true
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+visible = false
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+navpoly = SubResource( 1 )
 
 [node name="Camera" parent="." instance=ExtResource( 4 )]
 position = Vector2( 640, 360 )
-current = true
-zoom = Vector2( 0.7, 0.7 )
-process_mode = 0
+zoom = Vector2( 1, 1 )
 limit_left = 0
 limit_top = 0
 limit_right = 4000
 limit_bottom = 2000
 limit_smoothed = true
-smoothing_enabled = true
 decay = 0.8
 max_offset = Vector2( 50, 50 )
 max_roll = 0.1
@@ -85,12 +90,10 @@ __meta__ = {
 [node name="CanvasLayer" type="CanvasLayer" parent="HUD"]
 
 [node name="GrayScale" type="ColorRect" parent="HUD/CanvasLayer"]
-material = SubResource( 2 )
+material = SubResource( 3 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 1, 1, 1, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="health_regained" from="Player" to="." method="_on_Player_health_regained"]
-[connection signal="is_hit" from="Player" to="." method="_on_Player_is_hit"]

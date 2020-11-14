@@ -210,7 +210,7 @@ tracks/8/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.2 ]
+"values": [ 0.01 ]
 }
 tracks/9/type = "value"
 tracks/9/path = NodePath("Body/Exhaust2:lifetime")
@@ -222,7 +222,7 @@ tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.2 ]
+"values": [ 0.01 ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -321,7 +321,7 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.2 ]
+"values": [ 0.01 ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -408,7 +408,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.2 ]
+"values": [ 0.01 ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("Body/Exhaust2:lifetime")
@@ -501,13 +501,13 @@ region_rect = Rect2( 450, 200, 100, 100 )
 [node name="Exhaust1" type="Particles2D" parent="Body"]
 position = Vector2( -100, 100 )
 amount = 200
-lifetime = 0.2
+lifetime = 0.01
 process_material = ExtResource( 2 )
 
 [node name="Exhaust2" type="Particles2D" parent="Body"]
 position = Vector2( -100, -100 )
 amount = 200
-lifetime = 0.2
+lifetime = 0.01
 process_material = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

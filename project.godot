@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Area2D",
+"base": "Reference",
 "class": "Bullet",
 "language": "GDScript",
 "path": "res://bullets/bullet.gd"
@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entities/entity.gd"
 }, {
-"base": "Entity",
+"base": "Reference",
 "class": "Player",
 "language": "GDScript",
 "path": "res://entities/player/player.gd"

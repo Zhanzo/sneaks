@@ -10,7 +10,7 @@ export var trauma: float
 export var fire_rate: float
 export var bullet_scene: PackedScene
 
-var level_size: Rect2
+var level_size: Rect2 setget set_level_size
 
 var _velocity: Vector2 = Vector2.ZERO
 var _acceleration: Vector2 = Vector2.ZERO
@@ -27,6 +27,10 @@ onready var _explosion: Particles2D = $Explosion
 
 func _ready() -> void:
 	_bullet_delay.wait_time = fire_rate
+
+
+func set_level_size(new_level_size: Rect2) -> void:
+	level_size = new_level_size
 
 
 func _handle_out_of_bounds() -> void:
