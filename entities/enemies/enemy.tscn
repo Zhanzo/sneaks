@@ -10,18 +10,27 @@ radius = 400.0
 collision_layer = 2
 collision_mask = 3
 script = ExtResource( 2 )
-speed = 100
+damage = 1
+speed = 200
+turn_speed = 0.1
+trauma = 0.2
+fire_rate = 1.0
 
 [node name="DeathTimer" type="Timer" parent="." index="4"]
 one_shot = true
 
-[node name="BulletSpawn" type="Position2D" parent="." index="5"]
+[node name="SearchDelay" type="Timer" parent="." index="5"]
+wait_time = 3.0
+one_shot = true
 
-[node name="PlayerDetectionArea" type="Area2D" parent="." index="6"]
+[node name="BulletSpawn" type="Position2D" parent="." index="6"]
+
+[node name="PlayerDetectionArea" type="Area2D" parent="." index="7"]
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea" index="0"]
 shape = SubResource( 1 )
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
+[connection signal="timeout" from="SearchDelay" to="." method="_on_SearchDelay_timeout"]
 [connection signal="body_entered" from="PlayerDetectionArea" to="." method="_on_PlayerDetectionArea_body_entered"]
 [connection signal="body_exited" from="PlayerDetectionArea" to="." method="_on_PlayerDetectionArea_body_exited"]

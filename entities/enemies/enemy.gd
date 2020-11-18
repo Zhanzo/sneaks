@@ -8,16 +8,35 @@ enum States {
 	REST,
 	ATTACK,
 	SEARCH,
+	RETURN,
 }
 
 var navigation_2d: Navigation2D = null setget set_navigation_2d
 
+var _start_position: Vector2
+var _last_target_position: Vector2
+var _target: Player
 var _current_state: int = States.REST
-var _player_last_position: Vector2
-var _player: Player
 
 onready var _bullet_spawn: Position2D = $BulletSpawn
 onready var _death_timer: Timer = $DeathTimer
+onready var _search_delay: Timer = $SearchDelay
+
+
+func _ready() -> void:
+	_start_position = global_position
+
+
+func _process(delta: float) -> void:	
+	match _current_state:
+		States.REST:
+			_rest()
+		States.ATTACK:
+			_attack()
+		States.SEARCH:
+			_search(delta)
+		States.RETURN:
+			_reaturn_to_start_position(delta)
 
 
 func hurt(damage_taken: int) -> void:
@@ -33,6 +52,70 @@ func hurt(damage_taken: int) -> void:
 
 func set_navigation_2d(new_navigation_2d: Navigation2D) -> void:
 	navigation_2d = new_navigation_2d
+
+
+func _rest() -> void:
+	# TODO: Allow the enemy to patrol
+	pass
+
+
+func _attack() -> void:
+	if _target:
+		_rotate_to_point(_target.global_position)
+
+		if not _is_shooting:
+			_fire_bullet()
+	else:
+		_current_state = States.RETURN
+
+
+func _search(delta: float) -> void:
+	if _go_to_point(_last_target_position, delta):
+		_search_delay.start()
+		_current_state = States.REST
+
+
+func _reaturn_to_start_position(delta: float) -> void:
+	if _go_to_point(_start_position, delta):
+		_current_state = States.REST
+
+
+func _go_to_point(point: Vector2, delta: float) -> bool:
+	# Tries to move the enemy to a given point.
+	# Return true if the operation succeeded and false otherwise.
+
+	# if we do not have a navigation2d node we cannot move to the point
+	if not navigation_2d:
+		_current_state = States.REST
+		return false
+	
+	var nav_point = navigation_2d.get_closest_point(point)
+	var current_point: Vector2 = global_position
+	var path_to_point: PoolVector2Array = navigation_2d.get_simple_path(current_point, nav_point)
+	# the maximum distance the enemy can move (without friction)
+	var move_distance: float = _velocity.length() * delta
+	
+	while not path_to_point.empty():
+		var next_point: Vector2 = path_to_point[0]
+		var distance_to_next_point: float = current_point.distance_to(next_point)
+		
+		if move_distance <= distance_to_next_point:
+			_rotate_to_point(next_point)
+			break
+
+		move_distance -= distance_to_next_point
+		current_point = next_point
+		path_to_point.remove(0)
+	
+	return path_to_point.empty()
+
+
+func _move(delta: float) -> void:
+	_acceleration = Vector2(speed, 0).rotated(rotation)
+	_acceleration -= _velocity * friction
+	_velocity += _acceleration * delta
+	_velocity = Vector2(speed, 0).rotated(rotation)
+	_velocity = move_and_slide(_velocity)
 
 
 func _explode() -> void:
@@ -51,15 +134,33 @@ func _fire_bullet() -> void:
 	_bullet_delay.start()
 
 
+func _rotate_to_point(point: Vector2) -> void:
+	var angle_to_point: float = global_position.direction_to(point).angle()
+	
+	# avoid rotation animations if the rotation is small
+	if abs(angle_to_point - rotation) > 0.2:
+		_rotation_direction = 1 if angle_to_point > rotation else -1
+	else:
+		_rotation_direction = 0
+	
+	rotation = lerp_angle(rotation, angle_to_point, turn_speed)
+
+
 func _on_DeathTimer_timeout():
 	queue_free()
 
 
-func _on_PlayerDetectionArea_body_entered(player: Player) -> void:
-	_player = player
+func _on_PlayerDetectionArea_body_entered(target: Player) -> void:
+	_target = target
 	_current_state = States.ATTACK
 
 
-func _on_PlayerDetectionArea_body_exited(player: Player) -> void:
-	_player_last_position = navigation_2d.get_closest_point(player.global_position)
+func _on_PlayerDetectionArea_body_exited(target: Player) -> void:
+	_target = null
+	_last_target_position = target.global_position
 	_current_state = States.SEARCH
+
+
+func _on_SearchDelay_timeout():
+	if _current_state == States.REST:
+		_current_state = States.RETURN

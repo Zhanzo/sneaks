@@ -48,7 +48,7 @@ navpoly = SubResource( 1 )
 
 [node name="Camera" parent="." instance=ExtResource( 4 )]
 position = Vector2( 640, 360 )
-zoom = Vector2( 1, 1 )
+zoom = Vector2( 1.5, 1.5 )
 limit_left = 0
 limit_top = 0
 limit_right = 4000

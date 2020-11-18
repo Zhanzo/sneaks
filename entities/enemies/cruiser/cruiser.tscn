@@ -27,11 +27,6 @@ extents = Vector2( 9, 17 )
 [node name="Cruiser" instance=ExtResource( 3 )]
 script = ExtResource( 1 )
 health = 5
-damage = 1
-speed = 200
-turn_speed = 0.01
-trauma = 0.2
-fire_rate = 1.0
 bullet_scene = ExtResource( 4 )
 
 [node name="CruiserRig" parent="." index="0" instance=ExtResource( 2 )]
@@ -42,5 +37,5 @@ anims/hurt = SubResource( 1 )
 [node name="CollisionShape2D" parent="." index="2"]
 shape = SubResource( 2 )
 
-[node name="BulletSpawn" parent="." index="6"]
+[node name="BulletSpawn" parent="." index="7"]
 position = Vector2( 10, 0 )
