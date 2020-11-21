@@ -8,7 +8,7 @@ onready var _navigation_2d: Navigation2D = $Navigation2D
 onready var _camera: Camera2D = $Camera
 onready var _player: Player = $Player
 onready var _enemies: Node2D = $Enemies
-onready var _grayscale_filter: ColorRect = $HUD/CanvasLayer/GrayScale
+onready var _grayscale_filter: ColorRect = $CanvasLayer/GrayScale
 
 
 func _ready() -> void:

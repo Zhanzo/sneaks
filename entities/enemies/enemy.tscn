@@ -13,7 +13,7 @@ script = ExtResource( 2 )
 damage = 1
 speed = 200
 turn_speed = 0.1
-trauma = 0.2
+trauma = 0.1
 fire_rate = 1.0
 
 [node name="DeathTimer" type="Timer" parent="." index="4"]

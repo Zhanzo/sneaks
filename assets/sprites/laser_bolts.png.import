@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/laser_bolts.png-32b92145375ae887e13928f9c5032480.stex"
+path="res://.import/laser_bolts.png-1e2b8a9f6c38639ad5dd4ca371b36f07.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://bullets/laser_bolts.png"
-dest_files=[ "res://.import/laser_bolts.png-32b92145375ae887e13928f9c5032480.stex" ]
+source_file="res://assets/sprites/laser_bolts.png"
+dest_files=[ "res://.import/laser_bolts.png-1e2b8a9f6c38639ad5dd4ca371b36f07.stex" ]
 
 [params]
 

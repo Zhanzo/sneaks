@@ -1,8 +1,11 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://levels/space_background.jpg" type="Texture" id=1]
-[ext_resource path="res://menus/fonts/astron_boy_wonder.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/sprites/space_background.jpg" type="Texture" id=1]
+[ext_resource path="res://assets/fonts/astron_boy_wonder.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://menus/game_over_menu/game_over_menu.gd" type="Script" id=3]
+
+
+
 
 [sub_resource type="DynamicFont" id=1]
 size = 200

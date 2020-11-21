@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://levels/space_background.jpg" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/space_background.jpg" type="Texture" id=1]
 [ext_resource path="res://entities/player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/enemies/cruiser/cruiser.tscn" type="PackedScene" id=3]
 [ext_resource path="res://camera/camera.tscn" type="PackedScene" id=4]
@@ -16,13 +16,15 @@ code = "shader_type canvas_item;
 
 uniform bool activate_grayscale;
 
-void fragment() {
+void fragment() 
+{
 	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV);
-	if (activate_grayscale) {
+	
+	if (activate_grayscale) 
+	{
 		float avg = (COLOR.r + COLOR.g + COLOR.b) / 3.0;
 		COLOR.rgb = vec3(avg);
 	}
-	
 }"
 
 [sub_resource type="ShaderMaterial" id=3]
@@ -31,7 +33,6 @@ shader_param/activate_grayscale = null
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 5 )
-player_grayscale_health = 5
 
 [node name="Background" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -54,14 +55,12 @@ limit_top = 0
 limit_right = 4000
 limit_bottom = 2000
 limit_smoothed = true
-decay = 0.8
+decay = 1.0
 max_offset = Vector2( 50, 50 )
 max_roll = 0.1
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 640, 360 )
-trauma = 0.8
-max_health = 20
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera")
@@ -79,21 +78,18 @@ position = Vector2( 427.244, 916.76 )
 
 [node name="Cruiser4" parent="Enemies" instance=ExtResource( 3 )]
 position = Vector2( 1156.15, 880.738 )
+trauma = 0.2
 
-[node name="HUD" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="HUD"]
-
-[node name="GrayScale" type="ColorRect" parent="HUD/CanvasLayer"]
+[node name="GrayScale" type="ColorRect" parent="CanvasLayer"]
 material = SubResource( 3 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_min_size = Vector2( 2048, 2048 )
 color = Color( 1, 1, 1, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="health_regained" from="Player" to="." method="_on_Player_health_regained"]
+[connection signal="is_hit" from="Player" to="." method="_on_Player_is_hit"]

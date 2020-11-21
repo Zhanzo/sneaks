@@ -43,15 +43,14 @@ height = 8.0
 [node name="Player" instance=ExtResource( 1 )]
 collision_mask = 2
 script = ExtResource( 2 )
-health = 10
+health = 20
 damage = 1
-speed = 300
 turn_speed = 2.5
-friction = 0.65
-trauma = 0.0
+trauma = 0.7
 fire_rate = 0.1
 bullet_scene = ExtResource( 3 )
 bullet_kickback = 1000
+max_health = 20
 
 [node name="PlayerRig" parent="." index="0" instance=ExtResource( 9 )]
 position = Vector2( 0, -5 )
