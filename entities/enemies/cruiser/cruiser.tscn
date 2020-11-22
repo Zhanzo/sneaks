@@ -21,8 +21,8 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 10, 10, 10, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 9, 17 )
+[sub_resource type="CapsuleShape2D" id=2]
+height = 19.5688
 
 [node name="Cruiser" instance=ExtResource( 3 )]
 script = ExtResource( 1 )

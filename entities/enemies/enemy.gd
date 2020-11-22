@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 		States.REST:
 			_rest()
 		States.ATTACK:
-			_attack()
+			_attack(delta)
 		States.SEARCH:
 			_search(delta)
 		States.RETURN:
@@ -59,9 +59,10 @@ func _rest() -> void:
 	pass
 
 
-func _attack() -> void:
+func _attack(delta: float) -> void:
 	if _target:
-		_rotate_to_point(_target.global_position)
+		_go_to_point(_target.global_position, delta)
+		#_rotate_to_point(_target.global_position)
 
 		if not _is_shooting:
 			_fire_bullet()
@@ -94,6 +95,7 @@ func _go_to_point(point: Vector2, delta: float) -> bool:
 	var path_to_point: PoolVector2Array = navigation_2d.get_simple_path(current_point, nav_point)
 	# the maximum distance the enemy can move (without friction)
 	var move_distance: float = _velocity.length() * delta
+	
 	
 	while not path_to_point.empty():
 		var next_point: Vector2 = path_to_point[0]

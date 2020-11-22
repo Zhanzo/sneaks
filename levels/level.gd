@@ -4,7 +4,7 @@ export var freeze_delay: int = 15
 export var player_grayscale_health: int = 10
 
 onready var _background: Sprite = $Background
-onready var _navigation_2d: Navigation2D = $Navigation2D
+onready var _navigation_2d: Navigation2D = $TileMapNavigation2D
 onready var _camera: Camera2D = $Camera
 onready var _player: Player = $Player
 onready var _enemies: Node2D = $Enemies
