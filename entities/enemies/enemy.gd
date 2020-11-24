@@ -62,7 +62,6 @@ func _rest() -> void:
 func _attack(delta: float) -> void:
 	if _target:
 		_go_to_point(_target.global_position, delta)
-		#_rotate_to_point(_target.global_position)
 
 		if not _is_shooting:
 			_fire_bullet()
