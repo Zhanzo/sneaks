@@ -1,25 +1,50 @@
-class_name Cruiser
+class_name Stalker
 extends Enemy
 
+enum SneakStates {
+	HIDDEN,
+	VISIBLE,
+}
 
-onready var _rig: Node2D = $CruiserRig
-onready var _animation_tree: AnimationTree = $CruiserRig/AnimationTree
+var _current_sneak_state: int = SneakStates.HIDDEN
+
+onready var _rig: Node2D = $StalkerRig
+onready var _animation_tree: AnimationTree = $StalkerRig/AnimationTree
 onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tree.get(
 		"parameters/playback")
 
 
 func _process(delta: float) -> void:
 	_play_animation()
+	
+	if _current_sneak_state == SneakStates.HIDDEN:
+		modulate.a = 0.5
+	elif _current_sneak_state == SneakStates.VISIBLE:
+		modulate.a = 1.0
 
 
 func _physics_process(delta: float) -> void:
-	# no movement if the cruiser is resting
+	# no movement if the stalker is resting
 	if _current_state == States.REST:
 		return
 	
 	_move(delta)
 	
 	#_handle_out_of_bounds()
+
+
+func hurt(damage_taken: int) -> void:
+	health -= damage_taken
+
+	if health <= 0:
+		emit_signal("is_killed")
+		_explode()
+	else:
+		emit_signal("is_hit", trauma)
+		if _current_sneak_state == SneakStates.HIDDEN:
+			_hit_animation_player.play("hurt_hidden")
+		elif _current_sneak_state == SneakStates.VISIBLE:
+			_hit_animation_player.play("hurt_visible")
 
 
 func _play_animation() -> void:

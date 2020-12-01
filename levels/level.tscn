@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/sprites/space_background.jpg" type="Texture" id=1]
 [ext_resource path="res://entities/player/player.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://camera/camera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://levels/level.gd" type="Script" id=5]
 [ext_resource path="res://assets/sprites/rectangles.png" type="Texture" id=6]
+[ext_resource path="res://entities/enemies/stalker/stalker.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 1 )
@@ -80,6 +81,7 @@ void fragment()
 		COLOR.rgb = vec3(avg);
 	}
 }"
+custom_defines = ""
 
 [sub_resource type="ShaderMaterial" id=8]
 shader = SubResource( 7 )
@@ -126,7 +128,6 @@ texture = SubResource( 2 )
 [node name="TileMap" type="TileMap" parent="TileMapNavigation2D"]
 tile_set = SubResource( 5 )
 cell_size = Vector2( 32, 32 )
-collision_friction = 0.0
 collision_layer = 0
 collision_mask = 13
 format = 1
@@ -163,16 +164,28 @@ __meta__ = {
 
 [node name="Cruiser" parent="Enemies" instance=ExtResource( 3 )]
 position = Vector2( 724.762, 312.583 )
+speed = 200
+turn_speed = 0.1
 
 [node name="Cruiser2" parent="Enemies" instance=ExtResource( 3 )]
 position = Vector2( 1677.41, 213.276 )
+speed = 200
+turn_speed = 0.1
 
 [node name="Cruiser3" parent="Enemies" instance=ExtResource( 3 )]
 position = Vector2( 1322.25, 1633.8 )
+speed = 200
+turn_speed = 0.1
 
 [node name="Cruiser4" parent="Enemies" instance=ExtResource( 3 )]
 position = Vector2( 207, 1616 )
+speed = 200
+turn_speed = 0.1
 trauma = 0.2
+
+[node name="Stalker" parent="Enemies" instance=ExtResource( 7 )]
+position = Vector2( 259, 836 )
+speed = 200
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
