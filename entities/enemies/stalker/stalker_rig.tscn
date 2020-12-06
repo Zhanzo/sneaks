@@ -4,9 +4,9 @@
 [ext_resource path="res://assets/particles/enemy_exhaust.tres" type="Material" id=2]
 [ext_resource path="res://assets/shaders/outline.shader" type="Shader" id=3]
 
-[sub_resource type="ShaderMaterial" id=17]
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
-shader_param/outline_color = Color( 0, 0, 0, 1 )
+shader_param/outline_color = Color( 1, 1, 1, 1 )
 shader_param/outline_width = 10.0
 
 [sub_resource type="Animation" id=2]
@@ -49,8 +49,7 @@ tracks/2/keys = {
 "values": [ 1.0 ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "idle"
+[sub_resource type="Animation" id=3]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body/Sprite:position")
@@ -89,8 +88,7 @@ tracks/2/keys = {
 "values": [ 0.01 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "left"
+[sub_resource type="Animation" id=4]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body/Sprite:position")
@@ -129,8 +127,7 @@ tracks/2/keys = {
 "values": [ 1.0 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "right"
+[sub_resource type="Animation" id=5]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body/Sprite:position")
@@ -169,67 +166,67 @@ tracks/2/keys = {
 "values": [ 0.01 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=6]
 animation = "left"
 
-[sub_resource type="AnimationNodeAnimation" id=15]
+[sub_resource type="AnimationNodeAnimation" id=7]
 animation = "forward"
 
-[sub_resource type="AnimationNodeAnimation" id=16]
+[sub_resource type="AnimationNodeAnimation" id=8]
 animation = "right"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id=7]
-blend_point_0/node = SubResource( 14 )
+[sub_resource type="AnimationNodeBlendSpace2D" id=9]
+blend_point_0/node = SubResource( 6 )
 blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 15 )
+blend_point_1/node = SubResource( 7 )
 blend_point_1/pos = Vector2( 0, 1 )
-blend_point_2/node = SubResource( 16 )
+blend_point_2/node = SubResource( 8 )
 blend_point_2/pos = Vector2( 1, 0 )
 
-[sub_resource type="AnimationNodeAnimation" id=11]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "left"
 
-[sub_resource type="AnimationNodeAnimation" id=12]
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "idle"
 
-[sub_resource type="AnimationNodeAnimation" id=13]
+[sub_resource type="AnimationNodeAnimation" id=12]
 animation = "right"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id=8]
-blend_point_0/node = SubResource( 11 )
+[sub_resource type="AnimationNodeBlendSpace2D" id=13]
+blend_point_0/node = SubResource( 10 )
 blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 12 )
+blend_point_1/node = SubResource( 11 )
 blend_point_1/pos = Vector2( 0, 1 )
-blend_point_2/node = SubResource( 13 )
+blend_point_2/node = SubResource( 12 )
 blend_point_2/pos = Vector2( 1, 0 )
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
 xfade_time = 0.1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
 xfade_time = 0.1
 
-[sub_resource type="AnimationNodeStateMachine" id=5]
-states/Forward/node = SubResource( 7 )
+[sub_resource type="AnimationNodeStateMachine" id=16]
+states/Forward/node = SubResource( 9 )
 states/Forward/position = Vector2( 434, 82 )
-states/Idle/node = SubResource( 8 )
+states/Idle/node = SubResource( 13 )
 states/Idle/position = Vector2( 191, 82 )
-transitions = [ "Idle", "Forward", SubResource( 9 ), "Forward", "Idle", SubResource( 10 ) ]
+transitions = [ "Idle", "Forward", SubResource( 14 ), "Forward", "Idle", SubResource( 15 ) ]
 start_node = "Idle"
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=6]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=17]
 
 [node name="StalkerRig" type="Node2D"]
 
 [node name="Body" type="Sprite" parent="."]
-material = SubResource( 17 )
+material = SubResource( 1 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 290, 520, 200, 380 )
 
 [node name="Sprite" type="Sprite" parent="Body"]
-position = Vector2( 0, -0.256395 )
+position = Vector2( 0, -0.256399 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 90, 130, 100, 220 )
@@ -237,25 +234,25 @@ region_rect = Rect2( 90, 130, 100, 220 )
 [node name="TopExhaust" type="Particles2D" parent="Body"]
 position = Vector2( -100, -100 )
 amount = 200
-lifetime = 0.0142673
+lifetime = 0.0142674
 process_material = ExtResource( 2 )
 
 [node name="BottomExhaust" type="Particles2D" parent="Body"]
 position = Vector2( -100, 100 )
 amount = 200
-lifetime = 0.0184978
+lifetime = 0.018498
 process_material = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/forward = SubResource( 2 )
-anims/idle = SubResource( 1 )
-anims/left = SubResource( 3 )
-anims/right = SubResource( 4 )
+anims/idle = SubResource( 3 )
+anims/left = SubResource( 4 )
+anims/right = SubResource( 5 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 5 )
+tree_root = SubResource( 16 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 6 )
+parameters/playback = SubResource( 17 )
 parameters/Forward/blend_position = Vector2( -0.618827, 0.12069 )
 parameters/Idle/blend_position = Vector2( 0, 0.991379 )

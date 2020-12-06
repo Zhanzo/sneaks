@@ -6,7 +6,7 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
-shader_param/outline_color = Color( 0, 0, 0, 1 )
+shader_param/outline_color = Color( 1, 1, 1, 1 )
 shader_param/outline_width = 10.0
 
 [sub_resource type="Animation" id=2]
@@ -489,19 +489,19 @@ region_enabled = true
 region_rect = Rect2( 290, 520, 200, 380 )
 
 [node name="Top" type="Sprite" parent="Body"]
-position = Vector2( 0.258621, -100.255 )
+position = Vector2( 0.258629, -100.255 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 450, 200, 100, 100 )
 
 [node name="Middle" type="Sprite" parent="Body"]
-position = Vector2( 0.258621, -0.427322 )
+position = Vector2( 0.258629, -0.427334 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 450, 200, 100, 100 )
 
 [node name="Bottom" type="Sprite" parent="Body"]
-position = Vector2( 0.258621, 99.4003 )
+position = Vector2( 0.258629, 99.4003 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 450, 200, 100, 100 )
@@ -514,9 +514,8 @@ process_material = ExtResource( 2 )
 
 [node name="BottomExhaust" type="Particles2D" parent="Body"]
 position = Vector2( -100, 100 )
-scale = Vector2( 1, 1 )
 amount = 200
-lifetime = 0.0184977
+lifetime = 0.0184979
 process_material = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
