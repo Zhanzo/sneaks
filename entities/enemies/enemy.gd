@@ -11,8 +11,7 @@ enum States {
 	RETURN,
 }
 
-var navigation_2d: Navigation2D = null setget set_navigation_2d
-var navigation_tilemap: TileMap = null setget set_navigation_tilemap
+var astar: TileMap = null setget set_navigation_tilemap
 
 var _start_position: Vector2
 var _last_target_position: Vector2
@@ -51,12 +50,8 @@ func hurt(damage_taken: int) -> void:
 		_hit_animation_player.play("hurt")
 
 
-func set_navigation_2d(new_navigation_2d: Navigation2D) -> void:
-	navigation_2d = new_navigation_2d
-
-
 func set_navigation_tilemap(tilemap: TileMap) -> void:
-	navigation_tilemap = tilemap
+	astar = tilemap
 
 
 func _rest() -> void:
@@ -89,13 +84,13 @@ func _go_to_point(point: Vector2, delta: float) -> bool:
 	# Tries to move the enemy to a given point.
 	# Return true if the operation succeeded and false otherwise.
 
-	# if we do not have a navigation2d node we cannot move to the point
-	if not navigation_2d or not navigation_tilemap:
+	# if we do not have an astar node we cannot move to the point
+	if not astar:
 		_current_state = States.REST
 		return false
 	
 	var current_point: Vector2 = global_position
-	var path: Array = navigation_tilemap.get_astar_path(current_point, point)
+	var path: Array = astar.get_astar_path(current_point, point)
 	#var nav_point = navigation_2d.get_closest_point(point)
 	#var path_to_point: PoolVector2Array = navigation_2d.get_simple_path(current_point, nav_point)
 	# the maximum distance the enemy can move (without friction)
@@ -115,19 +110,6 @@ func _go_to_point(point: Vector2, delta: float) -> bool:
 		path.remove(0)
 	
 	return path.empty()
-#	while not path_to_point.empty():
-#		var next_point: Vector2 = path_to_point[0]
-#		var distance_to_next_point: float = current_point.distance_to(next_point)
-#
-#		if move_distance <= distance_to_next_point:
-#			_rotate_to_point(next_point)
-#			break
-#
-#		move_distance -= distance_to_next_point
-#		current_point = next_point
-#		path_to_point.remove(0)
-#
-#	return path_to_point.empty()
 
 
 func _move(delta: float) -> void:
