@@ -11,7 +11,7 @@ enum States {
 	RETURN,
 }
 
-var astar: TileMap = null setget set_navigation_tilemap
+var astar: TileMap = null setget set_astar
 
 var _start_position: Vector2
 var _last_target_position: Vector2
@@ -50,8 +50,8 @@ func hurt(damage_taken: int) -> void:
 		_hit_animation_player.play("hurt")
 
 
-func set_navigation_tilemap(tilemap: TileMap) -> void:
-	astar = tilemap
+func set_astar(value: TileMap) -> void:
+	astar = value
 
 
 func _rest() -> void:

@@ -28,7 +28,7 @@ func _ready() -> void:
 		enemy.connect("is_hit", self, "_on_Enemy_is_hit")
 		enemy.connect("is_killed", self, "_on_Enemy_is_killed")
 		# set the astar
-		enemy.set_navigation_tilemap(_obstacle_tilemap)
+		enemy.set_astar(_obstacle_tilemap)
 
 
 func _on_Enemy_is_hit(trauma: float) -> void:
