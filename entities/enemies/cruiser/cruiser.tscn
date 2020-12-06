@@ -28,7 +28,7 @@ radius = 11.0
 script = ExtResource( 1 )
 health = 5
 speed = 150
-turn_speed = 0.01
+turn_speed = 0.05
 bullet_scene = ExtResource( 4 )
 
 [node name="CruiserRig" parent="." index="0" instance=ExtResource( 2 )]
