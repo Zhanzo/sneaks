@@ -1,0 +1,261 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://assets/sprites/rectangles.png" type="Texture" id=1]
+[ext_resource path="res://assets/particles/enemy_exhaust.tres" type="Material" id=2]
+[ext_resource path="res://assets/shaders/outline.shader" type="Shader" id=3]
+
+[sub_resource type="ShaderMaterial" id=17]
+shader = ExtResource( 3 )
+shader_param/outline_color = Color( 0, 0, 0, 1 )
+shader_param/outline_width = 10.0
+
+[sub_resource type="Animation" id=2]
+resource_name = "forward"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 30, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/TopExhaust:lifetime")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/BottomExhaust:lifetime")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/TopExhaust:lifetime")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.01 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/BottomExhaust:lifetime")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.01 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "left"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -60 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/TopExhaust:lifetime")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.01 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/BottomExhaust:lifetime")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "right"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 60 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/TopExhaust:lifetime")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/BottomExhaust:lifetime")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.01 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=14]
+animation = "left"
+
+[sub_resource type="AnimationNodeAnimation" id=15]
+animation = "forward"
+
+[sub_resource type="AnimationNodeAnimation" id=16]
+animation = "right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=7]
+blend_point_0/node = SubResource( 14 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 15 )
+blend_point_1/pos = Vector2( 0, 1 )
+blend_point_2/node = SubResource( 16 )
+blend_point_2/pos = Vector2( 1, 0 )
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "left"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=8]
+blend_point_0/node = SubResource( 11 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 12 )
+blend_point_1/pos = Vector2( 0, 1 )
+blend_point_2/node = SubResource( 13 )
+blend_point_2/pos = Vector2( 1, 0 )
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachine" id=5]
+states/Forward/node = SubResource( 7 )
+states/Forward/position = Vector2( 434, 82 )
+states/Idle/node = SubResource( 8 )
+states/Idle/position = Vector2( 191, 82 )
+transitions = [ "Idle", "Forward", SubResource( 9 ), "Forward", "Idle", SubResource( 10 ) ]
+start_node = "Idle"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=6]
+
+[node name="StalkerRig" type="Node2D"]
+
+[node name="Body" type="Sprite" parent="."]
+material = SubResource( 17 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 290, 520, 200, 380 )
+
+[node name="Sprite" type="Sprite" parent="Body"]
+position = Vector2( 0, -0.256395 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 90, 130, 100, 220 )
+
+[node name="TopExhaust" type="Particles2D" parent="Body"]
+position = Vector2( -100, -100 )
+amount = 200
+lifetime = 0.0142673
+process_material = ExtResource( 2 )
+
+[node name="BottomExhaust" type="Particles2D" parent="Body"]
+position = Vector2( -100, 100 )
+amount = 200
+lifetime = 0.0184978
+process_material = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/forward = SubResource( 2 )
+anims/idle = SubResource( 1 )
+anims/left = SubResource( 3 )
+anims/right = SubResource( 4 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 5 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 6 )
+parameters/Forward/blend_position = Vector2( -0.618827, 0.12069 )
+parameters/Idle/blend_position = Vector2( 0, 0.991379 )

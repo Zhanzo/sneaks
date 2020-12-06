@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
+"base": "Area2D",
 "class": "Bullet",
 "language": "GDScript",
 "path": "res://bullets/bullet.gd"
@@ -29,17 +29,23 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entities/entity.gd"
 }, {
-"base": "Reference",
+"base": "Entity",
 "class": "Player",
 "language": "GDScript",
 "path": "res://entities/player/player.gd"
+}, {
+"base": "Enemy",
+"class": "Stalker",
+"language": "GDScript",
+"path": "res://entities/enemies/stalker/stalker.gd"
 } ]
 _global_script_class_icons={
 "Bullet": "",
 "Cruiser": "",
 "Enemy": "",
 "Entity": "",
-"Player": ""
+"Player": "",
+"Stalker": ""
 }
 
 [application]
@@ -94,4 +100,5 @@ ui_down={
 
 [rendering]
 
+quality/2d/use_pixel_snap=true
 environment/default_environment="res://default_env.tres"

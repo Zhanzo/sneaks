@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player.png-e1eaffe0873063c60a0d0b322e4d87d9.stex"
+path="res://.import/Planets_Vector_Transparentsd.png-e6ad62094d565c963fdc99a74fe4f9d8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/player.png"
-dest_files=[ "res://.import/player.png-e1eaffe0873063c60a0d0b322e4d87d9.stex" ]
+source_file="res://assets/sprites/Planets_Vector_Transparentsd.png"
+dest_files=[ "res://.import/Planets_Vector_Transparentsd.png-e6ad62094d565c963fdc99a74fe4f9d8.stex" ]
 
 [params]
 
@@ -24,11 +24,11 @@ flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
 size_limit=0
-detect_3d=false
+detect_3d=true
 svg/scale=1.0

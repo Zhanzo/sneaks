@@ -8,16 +8,18 @@ onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tre
 		"parameters/playback")
 
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	_play_animation()
-	
+
+
+func _physics_process(delta: float) -> void:
 	# no movement if the cruiser is resting
 	if _current_state == States.REST:
 		return
 	
 	_move(delta)
 	
-	_handle_out_of_bounds()
+	#_handle_out_of_bounds()
 
 
 func _play_animation() -> void:

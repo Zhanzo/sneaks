@@ -37,7 +37,7 @@ func _physics_process(delta: float) -> void:
 	_velocity += _acceleration * delta
 	rotation += turn_speed * _rotation_direction * delta
 	
-	_handle_out_of_bounds()
+	#_handle_out_of_bounds()
 	
 	_velocity = move_and_slide(_velocity)
 
