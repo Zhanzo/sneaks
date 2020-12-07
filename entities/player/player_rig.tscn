@@ -7,17 +7,17 @@
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
 shader_param/outline_color = Color( 1, 1, 1, 1 )
-shader_param/outline_width = 10.0
+shader_param/outline_width = 20.0
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 3 )
 shader_param/outline_color = Color( 1, 1, 1, 1 )
-shader_param/outline_width = 10.0
+shader_param/outline_width = 20.0
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 3 )
 shader_param/outline_color = Color( 1, 1, 1, 1 )
-shader_param/outline_width = 10.0
+shader_param/outline_width = 20.0
 
 [sub_resource type="Animation" id=4]
 length = 0.1
@@ -424,7 +424,7 @@ material = SubResource( 1 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 390, 260, 330, 270 )
+region_rect = Rect2( 380, 260, 350, 270 )
 
 [node name="LeftCannon" type="Sprite" parent="Body"]
 material = SubResource( 2 )
@@ -432,7 +432,8 @@ position = Vector2( -70, 0 )
 scale = Vector2( 1, 1.2 )
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 150, 600, 130, 440 )
+region_rect = Rect2( 140, 590, 160, 460 )
+region_filter_clip = true
 
 [node name="Exhaust1" type="Particles2D" parent="Body/LeftCannon"]
 position = Vector2( -50, -135 )
@@ -452,7 +453,7 @@ position = Vector2( 70, 0 )
 scale = Vector2( 1, 1.2 )
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 520, 610, 120, 440 )
+region_rect = Rect2( 490, 600, 160, 470 )
 
 [node name="BulletSpawn1" type="Position2D" parent="Body/RightCannon"]
 position = Vector2( 60, -140 )

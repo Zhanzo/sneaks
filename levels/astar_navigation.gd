@@ -67,8 +67,6 @@ func is_outside_map_boundaries(point: Vector2) -> bool:
 
 
 func _recalculate_path() -> void:
-	#if path_start_position == path_end_position:
-	#	return
 	var start_point_index: int = calculate_point_index(path_start_position)
 	var end_point_index: int = calculate_point_index(path_end_position)
 	_point_path = astar_node.get_point_path(start_point_index, end_point_index)

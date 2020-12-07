@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Planets_Vector_Transparentsd.png-e6ad62094d565c963fdc99a74fe4f9d8.stex"
+path="res://.import/enemies.png-63d2c51b330dde73c36aac68aa33914f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Planets_Vector_Transparentsd.png"
-dest_files=[ "res://.import/Planets_Vector_Transparentsd.png-e6ad62094d565c963fdc99a74fe4f9d8.stex" ]
+source_file="res://assets/sprites/enemies.png"
+dest_files=[ "res://.import/enemies.png-63d2c51b330dde73c36aac68aa33914f.stex" ]
 
 [params]
 
@@ -20,8 +20,8 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
-flags/mipmaps=false
+flags/filter=true
+flags/mipmaps=true
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true

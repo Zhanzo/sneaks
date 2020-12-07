@@ -24,6 +24,13 @@ func _process(delta: float) -> void:
 		_shake()
 
 
+func set_limits(value: Rect2) -> void:
+	limit_left = value.position.x
+	limit_right = value.end.x
+	limit_top = value.position.y
+	limit_bottom = value.end.y
+
+
 func add_trauma(amount: float) -> void:
 	_trauma = min(_trauma + amount, 1.0)
 

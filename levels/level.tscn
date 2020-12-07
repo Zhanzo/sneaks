@@ -1,114 +1,89 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/sprites/space_background.jpg" type="Texture" id=1]
 [ext_resource path="res://entities/player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/enemies/cruiser/cruiser.tscn" type="PackedScene" id=3]
 [ext_resource path="res://camera/camera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://levels/level.gd" type="Script" id=5]
+[ext_resource path="res://assets/sprites/asteroids.png" type="Texture" id=6]
 [ext_resource path="res://entities/enemies/stalker/stalker.tscn" type="PackedScene" id=7]
-[ext_resource path="res://assets/sprites/Planets_Vector_Transparentsd.png" type="Texture" id=8]
 [ext_resource path="res://levels/astar_navigation.gd" type="Script" id=9]
 
-[sub_resource type="TileSet" id=1]
-0/name = "space_background.jpg 0"
-0/texture = ExtResource( 1 )
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( 128, 128, 0, 128, 0, 0, 128, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+points = PoolVector2Array( 128, 128, 0, 128, 0, 0, 128, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=8]
+points = PoolVector2Array( 128, 128, 0, 128, 0, 0, 128, 0 )
+
+[sub_resource type="TileSet" id=4]
+0/name = "asteroids.png 0"
+0/texture = ExtResource( 6 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 0, 0, 1024, 1024 )
-0/tile_mode = 1
-0/autotile/bitmask_mode = 0
-0/autotile/bitmask_flags = [ Vector2( 0, 0 ), 325, Vector2( 0, 1 ), 325, Vector2( 0, 2 ), 325, Vector2( 0, 3 ), 325, Vector2( 1, 0 ), 325, Vector2( 1, 1 ), 325, Vector2( 1, 2 ), 325, Vector2( 1, 3 ), 325, Vector2( 2, 0 ), 325, Vector2( 2, 1 ), 325, Vector2( 2, 2 ), 325, Vector2( 2, 3 ), 325, Vector2( 3, 0 ), 325, Vector2( 3, 1 ), 325, Vector2( 3, 2 ), 325, Vector2( 3, 3 ), 325 ]
-0/autotile/icon_coordinate = Vector2( 0, 0 )
-0/autotile/tile_size = Vector2( 256, 256 )
-0/autotile/spacing = 0
-0/autotile/occluder_map = [  ]
-0/autotile/navpoly_map = [  ]
-0/autotile/priority_map = [  ]
-0/autotile/z_index_map = [  ]
-0/occluder_offset = Vector2( 0, 0 )
-0/navigation_offset = Vector2( 0, 0 )
-0/shape_offset = Vector2( 0, 0 )
-0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape_one_way = false
-0/shape_one_way_margin = 0.0
-0/shapes = [  ]
-0/z_index = 0
-
-[sub_resource type="ConvexPolygonShape2D" id=2]
-points = PoolVector2Array( 128, 64, 160, 32, 192, 32, 224, 64, 288, 96, 352, 192, 352, 224, 320, 288, 256, 320, 128, 320, 96, 288, 64, 224, 64, 160, 128, 64 )
-
-[sub_resource type="ConvexPolygonShape2D" id=3]
-points = PoolVector2Array( 96, 64, 128, 32, 160, 32, 192, 64, 224, 64, 256, 96, 288, 128, 288, 160, 320, 192, 320, 224, 288, 256, 288, 288, 256, 320, 96, 352, 96, 352, 64, 320, 32, 288, 32, 224, 64, 128 )
-
-[sub_resource type="ConvexPolygonShape2D" id=4]
-points = PoolVector2Array( 64, 64, 224, 32, 288, 96, 320, 160, 320, 192, 288, 256, 160, 224, 96, 256, 32, 192, 32, 128, 64, 64 )
-
-[sub_resource type="TileSet" id=5]
-0/name = "Planets_Vector_Transparentsd.png 0"
-0/texture = ExtResource( 8 )
-0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 0, 1600, 384, 384 )
+0/region = Rect2( 0, 0, 128, 128 )
 0/tile_mode = 0
 0/occluder_offset = Vector2( 0, 0 )
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 2 )
+0/shape = SubResource( 1 )
 0/shape_one_way = false
 0/shape_one_way_margin = 1.0
 0/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 2 ),
+"shape": SubResource( 1 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
-1/name = "Planets_Vector_Transparentsd.png 1"
-1/texture = ExtResource( 8 )
+1/name = "asteroids.png 1"
+1/texture = ExtResource( 6 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
-1/region = Rect2( 640, 1600, 320, 384 )
+1/region = Rect2( 128, 0, 128, 128 )
 1/tile_mode = 0
 1/occluder_offset = Vector2( 0, 0 )
 1/navigation_offset = Vector2( 0, 0 )
 1/shape_offset = Vector2( 0, 0 )
 1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-1/shape = SubResource( 3 )
+1/shape = SubResource( 7 )
 1/shape_one_way = false
 1/shape_one_way_margin = 1.0
 1/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 3 ),
+"shape": SubResource( 7 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 1/z_index = 0
-2/name = "Planets_Vector_Transparentsd.png 2"
-2/texture = ExtResource( 8 )
+2/name = "asteroids.png 2"
+2/texture = ExtResource( 6 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
-2/region = Rect2( 1280, 1664, 384, 256 )
+2/region = Rect2( 256, 0, 128, 128 )
 2/tile_mode = 0
 2/occluder_offset = Vector2( 0, 0 )
 2/navigation_offset = Vector2( 0, 0 )
 2/shape_offset = Vector2( 0, 0 )
 2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-2/shape = SubResource( 4 )
+2/shape = SubResource( 8 )
 2/shape_one_way = false
 2/shape_one_way_margin = 1.0
 2/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 4 ),
+"shape": SubResource( 8 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 2/z_index = 0
 
-[sub_resource type="Shader" id=6]
+[sub_resource type="Shader" id=5]
 code = "shader_type canvas_item;
 
 uniform bool activate_grayscale;
@@ -125,43 +100,32 @@ void fragment()
 }"
 custom_defines = ""
 
-[sub_resource type="ShaderMaterial" id=7]
-shader = SubResource( 6 )
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
 shader_param/activate_grayscale = null
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 5 )
 
-[node name="BackgroundTileMap" type="TileMap" parent="."]
-tile_set = SubResource( 1 )
-cell_size = Vector2( 256, 256 )
-collision_layer = 0
-collision_mask = 0
-format = 1
-tile_data = PoolIntArray( 65535, 5, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 16, 8, 0, 65536, 0, 0, 65537, 0, 131075, 65538, 0, 131075, 65539, 0, 2, 65540, 0, 131073, 65541, 0, 131075, 65542, 0, 131073, 65543, 0, 131074, 65544, 0, 131074, 65545, 0, 0, 131072, 0, 0, 131073, 0, 196608, 131074, 0, 196609, 131075, 0, 196610, 131076, 0, 65537, 131077, 0, 131073, 131078, 0, 131072, 131079, 0, 131073, 131080, 0, 0, 131081, 0, 0, 196608, 0, 0, 196609, 0, 131075, 196610, 0, 196609, 196611, 0, 65539, 196612, 0, 65536, 196613, 0, 196608, 196614, 0, 65536, 196615, 0, 65537, 196616, 0, 0, 196617, 0, 0, 262144, 0, 0, 262145, 0, 196610, 262146, 0, 131073, 262147, 0, 65536, 262148, 0, 131074, 262149, 0, 0, 262150, 0, 65539, 262151, 0, 2, 262152, 0, 196611, 262153, 0, 0, 327680, 0, 0, 327681, 0, 196611, 327682, 0, 65536, 327683, 0, 3, 327684, 0, 3, 327685, 0, 1, 327686, 0, 131075, 327687, 0, 65536, 327688, 0, 0, 327689, 0, 0, 393216, 0, 0, 393217, 0, 1, 393218, 0, 196608, 393219, 0, 65537, 393220, 0, 131072, 393221, 0, 131072, 393222, 0, 65538, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 458752, 0, 0, 458753, 0, 1, 458754, 0, 131074, 458755, 0, 65536, 458756, 0, 65538, 458757, 0, 1, 458758, 0, 196611, 458759, 0, 196611, 458760, 0, 65539, 458761, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 1048576, 8, 0, 1048592, 8, 0 )
+[node name="BackgroundSprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 2048, 2048 )
 
 [node name="ObstacleTileMap" type="TileMap" parent="."]
-scale = Vector2( 0.5, 0.5 )
-tile_set = SubResource( 5 )
-cell_size = Vector2( 256, 256 )
+tile_set = SubResource( 4 )
+cell_size = Vector2( 128, 128 )
+cell_tile_origin = 1
 collision_layer = 0
 collision_mask = 15
 format = 1
-tile_data = PoolIntArray( 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 65536, 0, 0, 65555, 0, 0, 131072, 0, 0, 131091, 0, 0, 196608, 0, 0, 196627, 0, 0, 262144, 0, 0, 262163, 0, 0, 327680, 0, 0, 327699, 0, 0, 393216, 0, 0, 393235, 0, 0, 458752, 0, 0, 458771, 0, 0, 524288, 0, 0, 524307, 0, 0, 589824, 0, 0, 589843, 0, 0, 655360, 0, 0, 655379, 0, 0, 720896, 0, 0, 720915, 0, 0, 786432, 0, 0, 786451, 0, 0, 851968, 0, 0, 851987, 0, 0, 917504, 0, 0, 917523, 0, 0, 983040, 0, 0, 983059, 0, 0, 1048576, 0, 0, 1048595, 0, 0, 1114113, 0, 0, 1114114, 0, 0, 1114115, 0, 0, 1114116, 0, 0, 1114117, 0, 0, 1114118, 0, 0, 1114119, 0, 0, 1114120, 0, 0, 1114121, 0, 0, 1114122, 0, 0, 1114123, 0, 0, 1114124, 0, 0, 1114125, 0, 0, 1114126, 0, 0, 1114127, 0, 0, 1114128, 0, 0, 1114129, 0, 0, 1114130, 0, 0 )
+tile_data = PoolIntArray( 0, 0, 0, 1, 2, 0, 2, 0, 0, 3, 1, 0, 4, 2, 0, 5, 1, 0, 6, 0, 0, 7, 2, 0, 8, 1, 0, 9, 2, 0, 10, 1, 0, 11, 2, 0, 12, 0, 0, 13, 2, 0, 14, 1, 0, 15, 0, 0, 65536, 1, 0, 65551, 2, 0, 131072, 2, 0, 131087, 1, 0, 196608, 0, 0, 196623, 0, 0, 262144, 1, 0, 262150, 0, 0, 262151, 0, 0, 262159, 2, 0, 327680, 2, 0, 327686, 0, 0, 327687, 0, 0, 327695, 1, 0, 393216, 1, 0, 393231, 2, 0, 458752, 0, 0, 458767, 1, 0, 524288, 2, 0, 524303, 0, 0, 589824, 1, 0, 589839, 1, 0, 655360, 2, 0, 655375, 2, 0, 720896, 0, 0, 720911, 1, 0, 786432, 1, 0, 786447, 0, 0, 851968, 0, 0, 851983, 2, 0, 917504, 1, 0, 917519, 1, 0, 983040, 2, 0, 983041, 0, 0, 983042, 2, 0, 983043, 1, 0, 983044, 0, 0, 983045, 1, 0, 983046, 2, 0, 983047, 1, 0, 983048, 0, 0, 983049, 2, 0, 983050, 1, 0, 983051, 0, 0, 983052, 2, 0, 983053, 1, 0, 983054, 0, 0, 983055, 2, 0 )
 script = ExtResource( 9 )
-map_size = Vector2( 20, 20 )
+map_size = Vector2( 16, 16 )
 
 [node name="Camera" parent="." instance=ExtResource( 4 )]
 position = Vector2( 942.381, 1035.32 )
-zoom = Vector2( 1, 1 )
-limit_left = 0
-limit_top = 0
-limit_right = 4000
-limit_bottom = 2000
-limit_smoothed = true
-decay = 1.0
-max_offset = Vector2( 50, 50 )
-max_roll = 0.1
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 942.381, 1035.32 )
@@ -196,7 +160,7 @@ turn_speed = 0.05
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="GrayScale" type="ColorRect" parent="CanvasLayer"]
-material = SubResource( 7 )
+material = SubResource( 6 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 1024.0

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rectangles.png-34594c1d9d6de1d2eeb7863edca0cb42.stex"
+path="res://.import/asteroids.png-df92049c248cb3094ae65ffe28d78c85.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/rectangles.png"
-dest_files=[ "res://.import/rectangles.png-34594c1d9d6de1d2eeb7863edca0cb42.stex" ]
+source_file="res://assets/sprites/asteroids.png"
+dest_files=[ "res://.import/asteroids.png-df92049c248cb3094ae65ffe28d78c85.stex" ]
 
 [params]
 
@@ -20,8 +20,8 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
-flags/mipmaps=false
+flags/filter=true
+flags/mipmaps=true
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
