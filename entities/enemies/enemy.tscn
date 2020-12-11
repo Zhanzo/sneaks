@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://entities/entity.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/enemies/enemy.gd" type="Script" id=2]
+[ext_resource path="res://bullets/enemy_bullet/enemy_bullet.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 400.0
@@ -15,7 +16,8 @@ damage = 1
 speed = 100
 turn_speed = 0.01
 trauma = 0.1
-fire_rate = 1.0
+fire_rate = 0.5
+bullet_scene = ExtResource( 3 )
 
 [node name="DeathTimer" type="Timer" parent="." index="4"]
 one_shot = true
