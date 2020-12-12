@@ -44,6 +44,7 @@ func hurt(damage_taken: int) -> void:
 	emit_signal("is_hit", trauma, health)
 	_hit_timer.start()
 	_is_hit = true
+	_hit_sound.play()
 
 	# If the player's health reaches zero the game is over
 	if health <= 0:
@@ -94,10 +95,12 @@ func _fire_bullet() -> void:
 	bullet2.initialize(_bullet_spawn2, rotation)
 	get_parent().add_child(bullet2)
 
+	_bullet_sound.play()
 	_attack_timer.start()
 
 
 func _explode() -> void:
+	_explosion_sound.play()
 	_death_timer.start()
 	_rig.visible = false
 	_explosion.emitting = true

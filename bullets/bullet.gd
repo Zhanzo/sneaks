@@ -5,10 +5,11 @@ var _speed: int = 500
 var _damage: int = 1
 var _velocity: Vector2
 
+onready var _sprite: Sprite = $Sprite
 onready var _death_timer: Timer = $DeathTimer
 onready var _explosion: Particles2D = $Explosion
 onready var _collision_shape: CollisionShape2D = $CollisionShape2D
-onready var _sprite: Sprite = $Sprite
+onready var _collision_sound: AudioStreamPlayer2D = $CollisionSound
 
 
 func _physics_process(delta: float) -> void:
@@ -26,6 +27,7 @@ func _explode() -> void:
 	_explosion.emitting = true
 	_sprite.visible = false
 	_collision_shape.set_deferred("disabled", true)
+	_collision_sound.play()
 	set_physics_process(false)
 
 

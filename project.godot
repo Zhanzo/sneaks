@@ -54,6 +54,10 @@ config/name="Top Down Shooter"
 run/main_scene="res://menus/main_menu/main_menu.tscn"
 config/icon="res://assets/sprites/icon.png"
 
+[autoload]
+
+BackgroundMusic="*res://singletons/background_music.tscn"
+
 [display]
 
 window/vsync/vsync_via_compositor=true

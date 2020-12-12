@@ -1,6 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://entities/entity.gd" type="Script" id=1]
+[ext_resource path="res://assets/audio/hit_sound.ogg" type="AudioStream" id=2]
+[ext_resource path="res://assets/audio/explosion.ogg" type="AudioStream" id=3]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.214815, 0.537037, 0.892593 )
@@ -54,3 +56,17 @@ one_shot = true
 speed_scale = 2.0
 explosiveness = 0.6
 process_material = SubResource( 5 )
+
+[node name="BulletSound" type="AudioStreamPlayer2D" parent="."]
+volume_db = -30.0
+max_distance = 1000.0
+
+[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -10.0
+max_distance = 1000.0
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+volume_db = -30.0
+max_distance = 1000.0

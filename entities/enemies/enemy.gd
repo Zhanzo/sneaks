@@ -42,6 +42,7 @@ func _process(delta: float) -> void:
 
 func hurt(damage_taken: int) -> void:
 	health -= damage_taken
+	_hit_sound.play()
 
 	if health <= 0:
 		emit_signal("is_killed")
@@ -124,6 +125,7 @@ func _move(delta: float) -> void:
 
 
 func _explode() -> void:
+	_explosion_sound.play()
 	_death_timer.start()
 	_explosion.emitting = true
 	_collision_shape.set_deferred("disabled", true)
@@ -135,6 +137,7 @@ func _fire_bullet() -> void:
 	var bullet: Bullet = bullet_scene.instance()
 	bullet.initialize(_bullet_spawn, rotation)
 	get_parent().add_child(bullet)
+	_bullet_sound.play()
 	_attack_timer.start()
 
 

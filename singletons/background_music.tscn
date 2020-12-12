@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/audio/background_music.ogg" type="AudioStream" id=1]
+[ext_resource path="res://singletons/background_music.gd" type="Script" id=2]
+
+[node name="BackgroundMusic" type="AudioStreamPlayer"]
+stream = ExtResource( 1 )
+volume_db = -20.0
+autoplay = true
+script = ExtResource( 2 )
+
+[node name="RestartTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+[connection signal="finished" from="." to="." method="_on_BackgroundMusic_finished"]
+[connection signal="timeout" from="RestartTimer" to="." method="_on_RestartTimer_timeout"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://entities/entity.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/player/player.gd" type="Script" id=2]
 [ext_resource path="res://bullets/player_bullet/player_bullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/audio/player_bullet.ogg" type="AudioStream" id=4]
 [ext_resource path="res://entities/player/player_rig.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Animation" id=1]
@@ -74,6 +75,9 @@ one_shot = true
 
 [node name="DeathTimer" type="Timer" parent="." index="8"]
 one_shot = true
+
+[node name="BulletSound" parent="." index="9"]
+stream = ExtResource( 4 )
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
 [connection signal="timeout" from="HealthRegenTimer" to="." method="_on_HealthRegenTimer_timeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://bullets/bullet.gd" type="Script" id=1]
+[ext_resource path="res://assets/audio/bullet_collision.ogg" type="AudioStream" id=2]
 
 [node name="Bullet" type="Area2D"]
 scale = Vector2( 2, 2 )
@@ -17,6 +18,11 @@ one_shot = true
 
 [node name="Explosion" type="Particles2D" parent="."]
 emitting = false
+
+[node name="CollisionSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+volume_db = -30.0
+max_distance = 1000.0
 [connection signal="area_entered" from="." to="." method="_on_Bullet_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]

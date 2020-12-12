@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/bullet_collision.ogg-667194c22bbdf5a684bb6830d540f776.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/bullet_collision.ogg"
+dest_files=[ "res://.import/bullet_collision.ogg-667194c22bbdf5a684bb6830d540f776.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

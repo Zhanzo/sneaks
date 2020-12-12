@@ -9,7 +9,7 @@ onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tre
 		"parameters/playback")
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	_play_animation()
 
 
