@@ -10,6 +10,7 @@ var _current_sneak_state: int = SneakStates.HIDDEN
 
 onready var _rig: Node2D = $StalkerRig
 onready var _animation_tree: AnimationTree = $StalkerRig/AnimationTree
+onready var _muzzle_animation_player: AnimationPlayer = $StalkerRig/MuzzleAnimationPlayer
 onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tree.get(
 		"parameters/playback")
 
@@ -29,8 +30,6 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	_move(delta)
-	
-	#_handle_out_of_bounds()
 
 
 func hurt(damage_taken: int) -> void:
@@ -45,6 +44,14 @@ func hurt(damage_taken: int) -> void:
 			_hit_animation_player.play("hurt_hidden")
 		elif _current_sneak_state == SneakStates.VISIBLE:
 			_hit_animation_player.play("hurt_visible")
+
+
+func _fire_bullet() -> void:
+	if _attack_timer.is_stopped():
+		print("Show muzzle")
+		_muzzle_animation_player.play("flash")
+		print("Muzzle shown")
+		._fire_bullet()
 
 
 func _play_animation() -> void:

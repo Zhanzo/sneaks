@@ -4,6 +4,7 @@ extends Enemy
 
 onready var _rig: Node2D = $CruiserRig
 onready var _animation_tree: AnimationTree = $CruiserRig/AnimationTree
+onready var _muzzle_animation_player: AnimationPlayer = $CruiserRig/MuzzleAnimationPlayer
 onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tree.get(
 		"parameters/playback")
 
@@ -18,8 +19,14 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	_move(delta)
-	
-	#_handle_out_of_bounds()
+
+
+func _fire_bullet() -> void:
+	if _attack_timer.is_stopped():
+		print("Show muzzle")
+		_muzzle_animation_player.play("flash")
+		print("Muzzle shown")
+		._fire_bullet()
 
 
 func _play_animation() -> void:

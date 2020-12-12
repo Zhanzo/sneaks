@@ -11,12 +11,8 @@ radius = 400.0
 collision_layer = 2
 collision_mask = 3
 script = ExtResource( 2 )
-health = 3
-damage = 1
 speed = 100
-turn_speed = 0.01
-trauma = 0.1
-fire_rate = 0.5
+turn_speed = 0.1
 bullet_scene = ExtResource( 3 )
 
 [node name="DeathTimer" type="Timer" parent="." index="4"]
@@ -28,7 +24,13 @@ one_shot = true
 
 [node name="BulletSpawn" type="Position2D" parent="." index="6"]
 
-[node name="PlayerDetectionArea" type="Area2D" parent="." index="7"]
+[node name="PathfindingRaycast" type="RayCast2D" parent="." index="7"]
+enabled = true
+cast_to = Vector2( 400, 0 )
+collision_mask = 16
+collide_with_areas = true
+
+[node name="PlayerDetectionArea" type="Area2D" parent="." index="8"]
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea" index="0"]

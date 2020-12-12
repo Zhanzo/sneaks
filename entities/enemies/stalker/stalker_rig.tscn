@@ -1,8 +1,10 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/sprites/enemies.png" type="Texture" id=1]
 [ext_resource path="res://assets/particles/enemy_exhaust.tres" type="Material" id=2]
 [ext_resource path="res://assets/shaders/outline.shader" type="Shader" id=3]
+[ext_resource path="res://assets/sprites/enemy_muzzle_flash.png" type="Texture" id=4]
+
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
@@ -13,7 +15,7 @@ shader_param/outline_width = 20.0
 resource_name = "forward"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/Sprite:position")
+tracks/0/path = NodePath("Body/InnerBody:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -52,7 +54,7 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=3]
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/Sprite:position")
+tracks/0/path = NodePath("Body/InnerBody:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -91,7 +93,7 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=4]
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/Sprite:position")
+tracks/0/path = NodePath("Body/InnerBody:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -130,7 +132,7 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=5]
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/Sprite:position")
+tracks/0/path = NodePath("Body/InnerBody:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -216,6 +218,35 @@ start_node = "Idle"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=17]
 
+[sub_resource type="Animation" id=18]
+resource_name = "flash"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/MuzzleFlash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/MuzzleFlash:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 2 ), Vector2( 2, 1 ) ]
+}
+
 [node name="StalkerRig" type="Node2D"]
 
 [node name="Body" type="Sprite" parent="."]
@@ -225,7 +256,7 @@ texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 280, 510, 210, 400 )
 
-[node name="Sprite" type="Sprite" parent="Body"]
+[node name="InnerBody" type="Sprite" parent="Body"]
 position = Vector2( 0, -0.256399 )
 texture = ExtResource( 1 )
 region_enabled = true
@@ -243,6 +274,13 @@ amount = 200
 lifetime = 0.018498
 process_material = ExtResource( 2 )
 
+[node name="MuzzleFlash" type="Sprite" parent="Body"]
+visible = false
+position = Vector2( 250, 0 )
+rotation = -3.14159
+scale = Vector2( 1, 2 )
+texture = ExtResource( 4 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/forward = SubResource( 2 )
 anims/idle = SubResource( 3 )
@@ -256,3 +294,6 @@ active = true
 parameters/playback = SubResource( 17 )
 parameters/Forward/blend_position = Vector2( -0.618827, 0.12069 )
 parameters/Idle/blend_position = Vector2( 0, 0.991379 )
+
+[node name="MuzzleAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/flash = SubResource( 18 )

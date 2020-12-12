@@ -10,15 +10,14 @@ export var max_health: int
 var _is_hit: bool = false
 
 onready var _rig: Node2D = $PlayerRig
-onready var _death_timer: Timer = $DeathTimer
 onready var _hit_timer: Timer = $HitTimer
+onready var _death_timer: Timer = $DeathTimer
 onready var _health_regen_timer: Timer = $HealthRegenTimer
-onready var _bullet_spawn1: Position2D = $PlayerRig/Body/RightCannon/BulletSpawn1
-onready var _bullet_spawn2: Position2D = $PlayerRig/Body/RightCannon/BulletSpawn2
-onready var _exhaust1: Particles2D = $PlayerRig/Body/LeftCannon/Exhaust1
-onready var _exhaust2: Particles2D = $PlayerRig/Body/LeftCannon/Exhaust2
 onready var _animation_player: AnimationPlayer = $AnimationPlayer
 onready var _animation_tree: AnimationTree = $PlayerRig/AnimationTree
+onready var _bullet_spawn1: Position2D = $PlayerRig/Body/RightCannon/BulletSpawn1
+onready var _bullet_spawn2: Position2D = $PlayerRig/Body/RightCannon/BulletSpawn2
+onready var _muzzle_animation_player: AnimationPlayer = $PlayerRig/MuzzleAnimationPlayer
 onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tree.get(
 	"parameters/playback"
 )
@@ -36,9 +35,6 @@ func _physics_process(delta: float) -> void:
 	_acceleration -= _velocity * friction
 	_velocity += _acceleration * delta
 	rotation += turn_speed * _rotation_direction * delta
-	
-	#_handle_out_of_bounds()
-	
 	_velocity = move_and_slide(_velocity)
 
 
@@ -78,11 +74,15 @@ func _get_user_input() -> void:
 	if Input.is_action_pressed("ui_down"):
 		_animation_player.play("shake")
 
-	if Input.is_action_pressed("ui_select") and not _is_shooting:
+	if Input.is_action_pressed("ui_select"):
 		_fire_bullet()
 
 
 func _fire_bullet() -> void:
+	if not _attack_timer.is_stopped():
+		return
+
+	_muzzle_animation_player.play("flash")
 	# kickback the player when firing a bullet
 	_acceleration -= Vector2(bullet_kickback, 0).rotated(rotation)
 
@@ -94,8 +94,7 @@ func _fire_bullet() -> void:
 	bullet2.initialize(_bullet_spawn2, rotation)
 	get_parent().add_child(bullet2)
 
-	_is_shooting = true
-	_bullet_delay.start()
+	_attack_timer.start()
 
 
 func _explode() -> void:

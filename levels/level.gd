@@ -3,11 +3,11 @@ extends Node2D
 export var freeze_delay: int = 15
 export var player_grayscale_health: int = 10
 
+onready var _player: Player = $Player
+onready var _camera: Camera2D = $Camera
+onready var _enemies: Node2D = $Enemies
 onready var _obstacles: TileMap = $ObstacleTileMap
 onready var _background: Sprite = $BackgroundSprite
-onready var _camera: Camera2D = $Camera
-onready var _player: Player = $Player
-onready var _enemies: Node2D = $Enemies
 onready var _grayscale_filter: ColorRect = $CanvasLayer/GrayScale
 
 

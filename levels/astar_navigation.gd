@@ -7,7 +7,7 @@ var path_end_position: Vector2 setget _set_path_end_position
 
 var _point_path: Array
 
-onready var astar_node := AStar2D.new()
+onready var astar_node: AStar2D = AStar2D.new()
 onready var obstacles: Array = get_used_cells_by_id(0)
 onready var _half_cell_size: Vector2 = cell_size / 2
 
@@ -33,18 +33,17 @@ func astar_add_walkable_cells(obstacle_list: Array = []) -> Array:
 func astar_connect_walkable_cells(points_array: Array):
 	for point in points_array:
 		var point_index: int = calculate_point_index(point)
-		for local_y in range(3):
-			for local_x in range(3):
-				var point_relative: Vector2 = Vector2(
-					point.x + local_x -1,
-					point.y + local_y - 1
-				)
-				var point_relative_index: int = calculate_point_index(point_relative)
-				if point_relative == point or \
-						is_outside_map_boundaries(point_relative) or \
-						not astar_node.has_point(point_relative_index):
-					continue
-				astar_node.connect_points(point_index, point_relative_index, true)
+		var points_relative: PoolVector2Array = PoolVector2Array([
+			point + Vector2.UP,
+			point + Vector2.LEFT,
+			point + Vector2.DOWN,
+			point + Vector2.LEFT])
+		for point_relative in points_relative:
+			var point_relative_index: int = calculate_point_index(point_relative)
+			if is_outside_map_boundaries(point_relative) or \
+					not astar_node.has_point(point_relative_index):
+				continue
+			astar_node.connect_points(point_index, point_relative_index, true)
 
 
 func get_astar_path(world_start: Vector2, world_end: Vector2) -> Array:

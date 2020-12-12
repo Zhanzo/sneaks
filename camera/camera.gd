@@ -4,7 +4,7 @@ export var decay: float
 export var max_offset: Vector2
 export var max_roll: float
 
-var _trauma: float
+var _trauma: float = 0
 var _trauma_power: int = 3
 var _noise_y: int = 0
 
@@ -25,10 +25,10 @@ func _process(delta: float) -> void:
 
 
 func set_limits(value: Rect2) -> void:
-	limit_left = value.position.x
-	limit_right = value.end.x
-	limit_top = value.position.y
-	limit_bottom = value.end.y
+	limit_left = int(value.position.x)
+	limit_right = int(value.end.x)
+	limit_top = int(value.position.y)
+	limit_bottom = int(value.end.y)
 
 
 func add_trauma(amount: float) -> void:

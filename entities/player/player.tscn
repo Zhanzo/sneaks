@@ -44,8 +44,7 @@ height = 8.0
 collision_mask = 2
 script = ExtResource( 2 )
 health = 20
-damage = 1
-turn_speed = 2.5
+friction = 1.0
 trauma = 0.7
 fire_rate = 0.2
 bullet_scene = ExtResource( 3 )
@@ -53,7 +52,6 @@ bullet_kickback = 1000
 max_health = 20
 
 [node name="PlayerRig" parent="." index="0" instance=ExtResource( 9 )]
-position = Vector2( 0, -5 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 anims/shake = SubResource( 1 )
@@ -65,9 +63,6 @@ anims/hurt = SubResource( 2 )
 visible = false
 rotation = 1.5708
 shape = SubResource( 3 )
-
-[node name="BulletDelay" parent="." index="4"]
-wait_time = 0.1
 
 [node name="HitTimer" type="Timer" parent="." index="6"]
 wait_time = 5.0

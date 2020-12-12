@@ -13,21 +13,22 @@ enum States {
 
 var astar: TileMap = null setget set_astar
 
+var _target: Player
 var _start_position: Vector2
 var _last_target_position: Vector2
-var _target: Player
 var _current_state: int = States.REST
 
-onready var _bullet_spawn: Position2D = $BulletSpawn
 onready var _death_timer: Timer = $DeathTimer
 onready var _search_delay: Timer = $SearchDelay
+onready var _bullet_spawn: Position2D = $BulletSpawn
+onready var _pathfinding_raycast: RayCast2D = $PathfindingRaycast
 
 
 func _ready() -> void:
 	_start_position = global_position
 
 
-func _process(delta: float) -> void:	
+func _process(delta: float) -> void:
 	match _current_state:
 		States.REST:
 			_rest()
@@ -62,9 +63,7 @@ func _rest() -> void:
 func _attack(delta: float) -> void:
 	if _target:
 		_go_to_point(_target.global_position, delta)
-
-		if not _is_shooting:
-			_fire_bullet()
+		_fire_bullet()
 	else:
 		_current_state = States.RETURN
 
@@ -83,6 +82,10 @@ func _reaturn_to_start_position(delta: float) -> void:
 func _go_to_point(point: Vector2, delta: float) -> bool:
 	# Tries to move the enemy to a given point.
 	# Return true if the operation succeeded and false otherwise.
+	_rotate_to_point(point)
+
+	if not _pathfinding_raycast.is_colliding():
+		return position.distance_to(point) <= 1
 
 	# if we do not have an astar node we cannot move to the point
 	if not astar:
@@ -97,7 +100,7 @@ func _go_to_point(point: Vector2, delta: float) -> bool:
 	var move_distance: float = _velocity.length() * delta
 	path.remove(0)
 	
-	while not path.empty():
+	while path.size() > 1 :
 		var next_point: Vector2 = path[0]
 		var distance_to_next_point: float = current_point.distance_to(next_point)
 		
@@ -109,7 +112,7 @@ func _go_to_point(point: Vector2, delta: float) -> bool:
 		current_point = next_point
 		path.remove(0)
 	
-	return path.empty()
+	return path.size() <= 1
 
 
 func _move(delta: float) -> void:
@@ -132,8 +135,7 @@ func _fire_bullet() -> void:
 	var bullet: Bullet = bullet_scene.instance()
 	bullet.initialize(_bullet_spawn, rotation)
 	get_parent().add_child(bullet)
-	_is_shooting = true
-	_bullet_delay.start()
+	_attack_timer.start()
 
 
 func _rotate_to_point(point: Vector2) -> void:

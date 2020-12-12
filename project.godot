@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entities/entity.gd"
 }, {
-"base": "Reference",
+"base": "Entity",
 "class": "Player",
 "language": "GDScript",
 "path": "res://entities/player/player.gd"
@@ -97,6 +97,7 @@ ui_down={
 2d_physics/layer_2="enemies"
 2d_physics/layer_3="player_bullet"
 2d_physics/layer_4="enemy_bullet"
+2d_physics/layer_5="walls"
 
 [rendering]
 
