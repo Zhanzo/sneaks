@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/low_health.ogg-2813c5da578f2d25c73039ae3fb65f2e.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/low_health.ogg"
+dest_files=[ "res://.import/low_health.ogg-2813c5da578f2d25c73039ae3fb65f2e.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -54,3 +54,12 @@ shape = SubResource( 3 )
 
 [node name="BulletSpawn" parent="." index="7"]
 position = Vector2( 10, 0 )
+
+[node name="BulletSound" parent="." index="10"]
+bus = "Master"
+
+[node name="ExplosionSound" parent="." index="11"]
+bus = "Master"
+
+[node name="HitSound" parent="." index="12"]
+bus = "Master"

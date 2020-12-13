@@ -44,13 +44,14 @@ height = 8.0
 [node name="Player" instance=ExtResource( 1 )]
 collision_mask = 2
 script = ExtResource( 2 )
-health = 20
+health = 10
+speed = 400
 friction = 1.0
 trauma = 0.7
 fire_rate = 0.2
 bullet_scene = ExtResource( 3 )
 bullet_kickback = 1000
-max_health = 20
+max_health = 10
 
 [node name="PlayerRig" parent="." index="0" instance=ExtResource( 9 )]
 
@@ -66,11 +67,11 @@ rotation = 1.5708
 shape = SubResource( 3 )
 
 [node name="HitTimer" type="Timer" parent="." index="6"]
-wait_time = 5.0
+wait_time = 3.0
 one_shot = true
 
 [node name="HealthRegenTimer" type="Timer" parent="." index="7"]
-wait_time = 0.1
+wait_time = 0.05
 one_shot = true
 
 [node name="DeathTimer" type="Timer" parent="." index="8"]

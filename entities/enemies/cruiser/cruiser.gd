@@ -23,9 +23,7 @@ func _physics_process(delta: float) -> void:
 
 func _fire_bullet() -> void:
 	if _attack_timer.is_stopped():
-		print("Show muzzle")
 		_muzzle_animation_player.play("flash")
-		print("Muzzle shown")
 		._fire_bullet()
 
 

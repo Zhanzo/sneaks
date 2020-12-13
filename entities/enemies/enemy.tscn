@@ -13,7 +13,7 @@ collision_layer = 2
 collision_mask = 3
 script = ExtResource( 2 )
 speed = 100
-turn_speed = 0.1
+turn_speed = 0.01
 bullet_scene = ExtResource( 3 )
 
 [node name="DeathTimer" type="Timer" parent="." index="4"]
@@ -39,12 +39,6 @@ shape = SubResource( 1 )
 
 [node name="BulletSound" parent="." index="9"]
 stream = ExtResource( 4 )
-
-[node name="ExplosionSound" parent="." index="10"]
-volume_db = -20.0
-
-[node name="HitSound" parent="." index="11"]
-volume_db = -20.0
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
 [connection signal="timeout" from="SearchDelay" to="." method="_on_SearchDelay_timeout"]
 [connection signal="body_entered" from="PlayerDetectionArea" to="." method="_on_PlayerDetectionArea_body_entered"]

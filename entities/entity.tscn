@@ -58,15 +58,18 @@ explosiveness = 0.6
 process_material = SubResource( 5 )
 
 [node name="BulletSound" type="AudioStreamPlayer2D" parent="."]
-volume_db = -30.0
+volume_db = -10.0
 max_distance = 1000.0
+bus = "MuffledBus"
 
 [node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
 volume_db = -10.0
 max_distance = 1000.0
+bus = "MuffledBus"
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )
-volume_db = -30.0
+volume_db = -10.0
 max_distance = 1000.0
+bus = "MuffledBus"
