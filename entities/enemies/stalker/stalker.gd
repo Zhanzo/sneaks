@@ -1,12 +1,8 @@
 class_name Stalker
 extends Enemy
 
-enum SneakStates {
-	HIDDEN,
-	VISIBLE,
-}
 
-var _current_sneak_state: int = SneakStates.HIDDEN
+var _is_hidden: bool = true setget set_is_hidden
 
 onready var _rig: Node2D = $StalkerRig
 onready var _animation_tree: AnimationTree = $StalkerRig/AnimationTree
@@ -17,11 +13,6 @@ onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tre
 
 func _process(_delta: float) -> void:
 	_play_animation()
-	
-	if _current_sneak_state == SneakStates.HIDDEN:
-		modulate.a = 0.5
-	elif _current_sneak_state == SneakStates.VISIBLE:
-		modulate.a = 1.0
 
 
 func _physics_process(delta: float) -> void:
@@ -32,6 +23,14 @@ func _physics_process(delta: float) -> void:
 	_move(delta)
 
 
+func set_is_hidden(value: bool) -> void:
+	if value:
+		modulate = Color(0, 0, 0, 1)
+	else:
+		modulate = Color(1, 1, 1, 1)
+	_is_hidden = value
+
+
 func hurt(damage_taken: int) -> void:
 	health -= damage_taken
 
@@ -40,9 +39,9 @@ func hurt(damage_taken: int) -> void:
 		_explode()
 	else:
 		emit_signal("is_hit", trauma)
-		if _current_sneak_state == SneakStates.HIDDEN:
+		if _is_hidden:
 			_hit_animation_player.play("hurt_hidden")
-		elif _current_sneak_state == SneakStates.VISIBLE:
+		else:
 			_hit_animation_player.play("hurt_visible")
 
 

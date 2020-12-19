@@ -11,7 +11,8 @@ enum States {
 	RETURN,
 }
 
-var astar: TileMap = null setget set_astar
+var pathfinder: Pathfinder = null setget set_pathfinder
+var is_visible: bool = false
 
 var _target: Player
 var _start_position: Vector2
@@ -52,8 +53,8 @@ func hurt(damage_taken: int) -> void:
 		_hit_animation_player.play("hurt")
 
 
-func set_astar(value: TileMap) -> void:
-	astar = value
+func set_pathfinder(value: Pathfinder) -> void:
+	pathfinder = value
 
 
 func _rest() -> void:
@@ -88,20 +89,20 @@ func _go_to_point(point: Vector2, delta: float) -> bool:
 	if not _pathfinding_raycast.is_colliding():
 		return position.distance_to(point) <= 1
 
-	# if we do not have an astar node we cannot move to the point
-	if not astar:
+	# if we do not have an pathfinder node we cannot move to the point
+	if not pathfinder:
 		_current_state = States.REST
 		return false
 	
 	var current_point: Vector2 = global_position
-	var path: Array = astar.get_astar_path(current_point, point)
+	var path: Array = pathfinder.get_astar_path(current_point, point)
 	#var nav_point = navigation_2d.get_closest_point(point)
 	#var path_to_point: PoolVector2Array = navigation_2d.get_simple_path(current_point, nav_point)
 	# the maximum distance the enemy can move (without friction)
 	var move_distance: float = _velocity.length() * delta
 	path.remove(0)
 	
-	while path.size() > 1 :
+	while not path.empty():
 		var next_point: Vector2 = path[0]
 		var distance_to_next_point: float = current_point.distance_to(next_point)
 		
@@ -113,7 +114,7 @@ func _go_to_point(point: Vector2, delta: float) -> bool:
 		current_point = next_point
 		path.remove(0)
 	
-	return path.size() <= 1
+	return path.empty()
 
 
 func _move(delta: float) -> void:
@@ -136,7 +137,7 @@ func _explode() -> void:
 func _fire_bullet() -> void:
 	var bullet: Bullet = bullet_scene.instance()
 	bullet.initialize(_bullet_spawn, rotation)
-	get_parent().add_child(bullet)
+	get_parent().get_parent().add_child(bullet)
 	_bullet_sound.play()
 	_attack_timer.start()
 
@@ -171,3 +172,11 @@ func _on_PlayerDetectionArea_body_exited(target: Player) -> void:
 func _on_SearchDelay_timeout():
 	if _current_state == States.REST:
 		_current_state = States.RETURN
+
+
+func _on_VisibilityNotifier2D_screen_entered():
+	is_visible = true
+
+
+func _on_VisibilityNotifier2D_screen_exited():
+	is_visible = false

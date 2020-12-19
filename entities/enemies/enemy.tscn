@@ -39,7 +39,11 @@ shape = SubResource( 1 )
 
 [node name="BulletSound" parent="." index="9"]
 stream = ExtResource( 4 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="12"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
 [connection signal="timeout" from="SearchDelay" to="." method="_on_SearchDelay_timeout"]
 [connection signal="body_entered" from="PlayerDetectionArea" to="." method="_on_PlayerDetectionArea_body_entered"]
 [connection signal="body_exited" from="PlayerDetectionArea" to="." method="_on_PlayerDetectionArea_body_exited"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

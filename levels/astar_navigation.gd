@@ -1,3 +1,4 @@
+class_name Pathfinder
 extends TileMap
 
 export var map_size: Vector2

@@ -3,10 +3,11 @@ extends Node2D
 export var freeze_delay: int = 15
 export var player_low_health: int = 5
 
+onready var _arrow: Sprite = $Arrow
 onready var _player: Player = $Player
-onready var _camera: Camera2D = $Camera
 onready var _enemies: Node2D = $Enemies
-onready var _obstacles: TileMap = $ObstacleTileMap
+onready var _camera: Camera2D = $Camera
+onready var _obstacles: Pathfinder = $ObstacleTileMap
 onready var _background: Sprite = $BackgroundSprite
 onready var _grayscale_filter: ColorRect = $CanvasLayer/GrayScale
 onready var _low_health_audio: AudioStreamPlayer = $LowHealthAudio
@@ -22,12 +23,58 @@ func _ready() -> void:
 	# set the camera limits
 	_camera.set_limits(_background.region_rect)
 
+	print(_enemies.get_child_count())
 	for enemy in _enemies.get_children():
 		# connect enemy signals
 		enemy.connect("is_hit", self, "_on_Enemy_is_hit")
 		enemy.connect("is_killed", self, "_on_Enemy_is_killed")
 		# set the astar
-		enemy.set_astar(_obstacles)
+		enemy.set_pathfinder(_obstacles)
+
+
+func _process(delta: float) -> void:
+	_find_closest_enemy()
+	_try_to_show_stalkers()
+
+
+func _find_closest_enemy() -> void:
+	var closest_enemy: Enemy
+	var distance_to_closest_enemy: float = INF
+	for enemy in _enemies.get_children():
+		if enemy.is_visible:
+			closest_enemy = null
+			break
+		elif _player.position.distance_to(enemy.position) <= distance_to_closest_enemy:
+			closest_enemy = enemy
+			distance_to_closest_enemy = _player.position.distance_to(enemy.position)
+	if closest_enemy:
+		# set a margin so the arrow is visible
+		var margin: Vector2 = Vector2(20, 20)
+		# find the min and max positions of the camera
+		var ctrans: Transform2D = get_canvas_transform()
+		var min_pos: Vector2 = -ctrans.get_origin() / ctrans.get_scale()
+		var view_size: Vector2 = get_viewport_rect().size / ctrans.get_scale()
+		var max_pos: Vector2 = min_pos + view_size
+		var viewport_rect: Rect2 = _camera.get_viewport_rect()
+		_arrow.position.x = clamp(closest_enemy.position.x, min_pos.x + margin.x, max_pos.x - margin.x)
+		_arrow.position.y = clamp(closest_enemy.position.y, min_pos.y + margin.y, max_pos.y - margin.y)
+		_arrow.rotation = _player.position.direction_to(closest_enemy.position).angle() + PI/2
+		_arrow.visible = true
+	else:
+		_arrow.visible = false
+
+
+func _try_to_show_stalkers() -> void:
+	# shows the stalkers if all cruisers are defeated
+	var has_only_stalkers: bool = true
+	print(_enemies.get_child_count())
+	for enemy in _enemies.get_children():
+		if enemy is Cruiser:
+			has_only_stalkers = false
+			break
+	if has_only_stalkers:
+		for enemy in _enemies.get_children():
+			enemy.set_is_hidden(false)
 
 
 func _on_Enemy_is_hit(trauma: float) -> void:
@@ -37,7 +84,7 @@ func _on_Enemy_is_hit(trauma: float) -> void:
 
 
 func _on_Enemy_is_killed() -> void:
-	# freeze the frame heavily
+	# freeze the frame heavily	
 	OS.delay_msec(freeze_delay * 3)
 
 

@@ -5,7 +5,6 @@
 [ext_resource path="res://assets/shaders/outline.shader" type="Shader" id=3]
 [ext_resource path="res://assets/sprites/enemy_muzzle_flash.png" type="Texture" id=4]
 
-
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
 shader_param/outline_color = Color( 1, 1, 1, 1 )

@@ -48,3 +48,7 @@ bus = "Master"
 
 [node name="HitSound" parent="." index="12"]
 bus = "Master"
+
+[node name="VisibilityNotifier2D" parent="." index="13"]
+position = Vector2( 0, 0.62056 )
+scale = Vector2( 1, 1.93085 )
