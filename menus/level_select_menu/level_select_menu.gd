@@ -1,6 +1,5 @@
 extends Control
 
-
 onready var _button_row: HBoxContainer = $VBoxContainer/ButtonRow
 onready var _button_row2: HBoxContainer = $VBoxContainer/ButtonRow2
 
@@ -32,12 +31,15 @@ func _on_Level3Button_pressed():
 
 
 func _on_Level4Button_pressed():
-	pass # Replace with function body.
+	if get_tree().change_scene("res://levels/level4.tscn") != OK:
+		print("Error occured when switching scene")
 
 
 func _on_Level5Button_pressed():
-	pass # Replace with function body.
+	if get_tree().change_scene("res://levels/level5.tscn") != OK:
+		print("Error occured when switching scene")
 
 
 func _on_Level6Button_pressed():
-	pass # Replace with function body.
+	if get_tree().change_scene("res://levels/level6.tscn") != OK:
+		print("Error occured when switching scene")

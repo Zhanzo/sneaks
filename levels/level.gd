@@ -1,3 +1,4 @@
+class_name Level
 extends Node2D
 
 export var level_id: String
@@ -16,7 +17,8 @@ onready var _grayscale_filter: ColorRect = $GrayScaleLayer/GrayScale
 onready var _level_complete: Control = $LevelCompleteLayer/LevelComplete
 onready var _muffled_bus_idx: int = AudioServer.get_bus_index("MuffledBus")
 
-var _player_is_near_death: bool = false
+var _is_player_near_death: bool = false
+var _are_all_cruisers_dead: bool = false
 
 
 func _ready() -> void:
@@ -69,12 +71,16 @@ func _find_closest_enemy() -> void:
 
 func _try_to_show_stalkers() -> void:
 	# shows the stalkers if all cruisers are defeated
+	if _are_all_cruisers_dead:
+		return
+
 	var has_only_stalkers: bool = true
 	for enemy in _enemies.get_children():
 		if enemy is Cruiser:
 			has_only_stalkers = false
 			break
 	if has_only_stalkers:
+		_are_all_cruisers_dead = true
 		for enemy in _enemies.get_children():
 			enemy.set_is_hidden(false)
 
@@ -101,20 +107,20 @@ func _on_Enemy_is_killed() -> void:
 
 func _on_Player_is_hit(trauma: float, health: int) -> void:
 	_camera.add_trauma(trauma)
-	if health <= player_low_health and not _player_is_near_death:
+	if health <= player_low_health and not _is_player_near_death:
 		_low_health_audio.play()
 		_grayscale_filter.material.set_shader_param("activate_grayscale", true)
 		Engine.time_scale = 0.5
 		AudioServer.set_bus_effect_enabled (_muffled_bus_idx, 0, true)
-		_player_is_near_death = true
+		_is_player_near_death = true
 
 
 func _on_Player_health_regained(health: int) -> void:
-	if health > player_low_health and _player_is_near_death:
+	if health > player_low_health and _is_player_near_death:
 		_grayscale_filter.material.set_shader_param("activate_grayscale", false)
 		Engine.time_scale = 1
 		AudioServer.set_bus_effect_enabled (_muffled_bus_idx, 0, false)
-		_player_is_near_death = false
+		_is_player_near_death = false
 
 
 func _on_Player_has_died():

@@ -31,7 +31,7 @@ func _ready() -> void:
 func _physics_process(delta):
 	match _current_state:
 		States.REST:
-			_rest()
+			pass
 		States.ATTACK:
 			_attack(delta)
 		States.SEARCH:
@@ -54,11 +54,6 @@ func hurt(damage_taken: int) -> void:
 
 func set_navigation_2d(value: Navigation2D) -> void:
 	navigation_2d = value
-
-
-func _rest() -> void:
-	# TODO: Allow the enemy to patrol
-	pass
 
 
 func _attack(delta: float) -> void:
