@@ -2,10 +2,15 @@ class_name Player
 extends Entity
 
 signal is_hit(trauma, health)
+signal has_died()
 signal health_regained(health)
 
 export var bullet_kickback: int
 export var max_health: int
+export var friction: float
+
+var _velocity: Vector2 = Vector2.ZERO
+var _acceleration: Vector2 = Vector2.ZERO
 
 var _is_hit: bool = false
 
@@ -122,5 +127,4 @@ func _on_HealthRegenTimer_timeout() -> void:
 
 
 func _on_DeathTimer_timeout():
-	if get_tree().change_scene("res://menus/game_over_menu/game_over_menu.tscn") != OK:
-		print("Error occured when switching scene")
+	emit_signal("has_died")

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://levels/level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/enemies/cruiser/cruiser.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/level2.tscn" type="PackedScene" id=3]
+
+[sub_resource type="NavigationPolygon" id=1]
+vertices = PoolVector2Array( 160, 160, 1888, 160, 1888, 1888, 160, 1888 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( 160, 160, 1888, 160, 1888, 1888, 160, 1888 ) ]
+
+[node name="Level1" instance=ExtResource( 1 )]
+next_level = ExtResource( 3 )
+
+[node name="NavigationPolygonInstance" parent="Navigation2D" index="0"]
+navpoly = SubResource( 1 )
+
+[node name="Cruiser" parent="Enemies" index="0" instance=ExtResource( 2 )]
+position = Vector2( 1729.86, 1672.61 )
+
+[node name="Cruiser2" parent="Enemies" index="1" instance=ExtResource( 2 )]
+position = Vector2( 322.326, 1706.21 )
+
+[node name="Cruiser3" parent="Enemies" index="2" instance=ExtResource( 2 )]
+position = Vector2( 298.681, 292.458 )
+
+[node name="Cruiser4" parent="Enemies" index="3" instance=ExtResource( 2 )]
+position = Vector2( 1667.63, 316.104 )

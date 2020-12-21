@@ -25,9 +25,7 @@ radius = 11.0
 
 [node name="Cruiser" instance=ExtResource( 3 )]
 script = ExtResource( 1 )
-health = 5
 speed = 150
-turn_speed = 0.05
 
 [node name="CruiserRig" parent="." index="0" instance=ExtResource( 2 )]
 
@@ -40,15 +38,15 @@ shape = SubResource( 2 )
 [node name="BulletSpawn" parent="." index="7"]
 position = Vector2( 10, 0 )
 
-[node name="BulletSound" parent="." index="10"]
+[node name="BulletSound" parent="." index="9"]
 bus = "Master"
 
-[node name="ExplosionSound" parent="." index="11"]
+[node name="ExplosionSound" parent="." index="10"]
 bus = "Master"
 
-[node name="HitSound" parent="." index="12"]
+[node name="HitSound" parent="." index="11"]
 bus = "Master"
 
-[node name="VisibilityNotifier2D" parent="." index="13"]
+[node name="VisibilityNotifier2D" parent="." index="12"]
 position = Vector2( 0, 0.62056 )
 scale = Vector2( 1, 1.93085 )

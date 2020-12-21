@@ -1,0 +1,143 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/sprites/space_background.jpg" type="Texture" id=1]
+[ext_resource path="res://assets/fonts/astron_boy_wonder.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://menus/level_select_menu/level_select_menu.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 150
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 75
+font_data = ExtResource( 2 )
+
+[node name="LevelSelectMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1024, 600 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 50
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_top = 85.0
+margin_right = 1024.0
+margin_bottom = 243.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 0.933333, 0, 1 )
+text = "Select a Level"
+align = 1
+valign = 1
+
+[node name="ButtonRow" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 293.0
+margin_right = 1024.0
+margin_bottom = 379.0
+custom_constants/separation = 100
+alignment = 1
+
+[node name="Level1Button" type="Button" parent="VBoxContainer/ButtonRow"]
+margin_left = 30.0
+margin_right = 264.0
+margin_bottom = 86.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 0 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0.533333, 0.533333, 0.533333, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Level 1"
+flat = true
+
+[node name="Level2Button" type="Button" parent="VBoxContainer/ButtonRow"]
+margin_left = 364.0
+margin_right = 629.0
+margin_bottom = 86.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 0 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0.533333, 0.533333, 0.533333, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+disabled = true
+text = "Level 2"
+flat = true
+
+[node name="Level3Button" type="Button" parent="VBoxContainer/ButtonRow"]
+margin_left = 729.0
+margin_right = 994.0
+margin_bottom = 86.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 0 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0.533333, 0.533333, 0.533333, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+disabled = true
+text = "Level 3"
+flat = true
+
+[node name="ButtonRow2" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 429.0
+margin_right = 1024.0
+margin_bottom = 515.0
+custom_constants/separation = 100
+alignment = 1
+
+[node name="Level4Button" type="Button" parent="VBoxContainer/ButtonRow2"]
+margin_left = 16.0
+margin_right = 277.0
+margin_bottom = 86.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 0 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0.533333, 0.533333, 0.533333, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+disabled = true
+text = "Level 4"
+flat = true
+
+[node name="Level5Button" type="Button" parent="VBoxContainer/ButtonRow2"]
+margin_left = 377.0
+margin_right = 642.0
+margin_bottom = 86.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 0 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0.533333, 0.533333, 0.533333, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+disabled = true
+text = "Level 5"
+flat = true
+
+[node name="Level6Button" type="Button" parent="VBoxContainer/ButtonRow2"]
+margin_left = 742.0
+margin_right = 1007.0
+margin_bottom = 86.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 0 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0.533333, 0.533333, 0.533333, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+disabled = true
+text = "Level 6"
+flat = true
+[connection signal="pressed" from="VBoxContainer/ButtonRow/Level1Button" to="." method="_on_Level1Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonRow/Level2Button" to="." method="_on_Level2Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonRow/Level3Button" to="." method="_on_Level3Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonRow2/Level4Button" to="." method="_on_Level4Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonRow2/Level5Button" to="." method="_on_Level5Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonRow2/Level6Button" to="." method="_on_Level6Button_pressed"]

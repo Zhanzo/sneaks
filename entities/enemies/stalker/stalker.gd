@@ -15,14 +15,6 @@ func _process(_delta: float) -> void:
 	_play_animation()
 
 
-func _physics_process(delta: float) -> void:
-	# no movement if the stalker is resting
-	if _current_state == States.REST:
-		return
-	
-	_move(delta)
-
-
 func set_is_hidden(value: bool) -> void:
 	if value:
 		modulate = Color(0, 0, 0, 1)

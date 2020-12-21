@@ -13,14 +13,6 @@ func _process(_delta: float) -> void:
 	_play_animation()
 
 
-func _physics_process(delta: float) -> void:
-	# no movement if the cruiser is resting
-	if _current_state == States.REST:
-		return
-	
-	_move(delta)
-
-
 func _fire_bullet() -> void:
 	if _attack_timer.is_stopped():
 		_muzzle_animation_player.play("flash")

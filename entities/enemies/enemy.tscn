@@ -12,8 +12,9 @@ radius = 400.0
 collision_layer = 2
 collision_mask = 3
 script = ExtResource( 2 )
+health = 10
 speed = 100
-turn_speed = 0.01
+turn_speed = 0.1
 bullet_scene = ExtResource( 3 )
 
 [node name="DeathTimer" type="Timer" parent="." index="4"]
@@ -25,22 +26,16 @@ one_shot = true
 
 [node name="BulletSpawn" type="Position2D" parent="." index="6"]
 
-[node name="PathfindingRaycast" type="RayCast2D" parent="." index="7"]
-enabled = true
-cast_to = Vector2( 400, 0 )
-collision_mask = 16
-collide_with_areas = true
-
-[node name="PlayerDetectionArea" type="Area2D" parent="." index="8"]
+[node name="PlayerDetectionArea" type="Area2D" parent="." index="7"]
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea" index="0"]
 shape = SubResource( 1 )
 
-[node name="BulletSound" parent="." index="9"]
+[node name="BulletSound" parent="." index="8"]
 stream = ExtResource( 4 )
 
-[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="12"]
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="11"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
 [connection signal="timeout" from="SearchDelay" to="." method="_on_SearchDelay_timeout"]
 [connection signal="body_entered" from="PlayerDetectionArea" to="." method="_on_PlayerDetectionArea_body_entered"]

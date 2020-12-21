@@ -5,13 +5,9 @@ export var health: int
 export var damage: int
 export var speed: int
 export var turn_speed: float
-export var friction: float
 export var trauma: float
 export var fire_rate: float
 export var bullet_scene: PackedScene
-
-var _velocity: Vector2 = Vector2.ZERO
-var _acceleration: Vector2 = Vector2.ZERO
 
 
 var _rotation_direction: float = 0.0 

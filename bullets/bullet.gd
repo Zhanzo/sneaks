@@ -43,3 +43,7 @@ func _on_Bullet_area_entered(_area: Bullet) -> void:
 
 func _on_DeathTimer_timeout() -> void:
 	queue_free()
+
+
+func _on_VisibilityNotifier2D_screen_exited():
+	queue_free()

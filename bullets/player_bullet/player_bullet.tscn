@@ -47,3 +47,7 @@ one_shot = true
 speed_scale = 5.0
 explosiveness = 1.0
 process_material = SubResource( 4 )
+
+[node name="VisibilityNotifier2D" parent="." index="5"]
+position = Vector2( -1.64382, -1.19209e-06 )
+scale = Vector2( 6.50229, 2 )

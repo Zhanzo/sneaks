@@ -11,7 +11,7 @@ enum States {
 	RETURN,
 }
 
-var pathfinder: Pathfinder = null setget set_pathfinder
+var navigation_2d: Navigation2D = null setget set_navigation_2d
 var is_visible: bool = false
 
 var _target: Player
@@ -22,14 +22,13 @@ var _current_state: int = States.REST
 onready var _death_timer: Timer = $DeathTimer
 onready var _search_delay: Timer = $SearchDelay
 onready var _bullet_spawn: Position2D = $BulletSpawn
-onready var _pathfinding_raycast: RayCast2D = $PathfindingRaycast
 
 
 func _ready() -> void:
 	_start_position = global_position
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta):
 	match _current_state:
 		States.REST:
 			_rest()
@@ -53,8 +52,8 @@ func hurt(damage_taken: int) -> void:
 		_hit_animation_player.play("hurt")
 
 
-func set_pathfinder(value: Pathfinder) -> void:
-	pathfinder = value
+func set_navigation_2d(value: Navigation2D) -> void:
+	navigation_2d = value
 
 
 func _rest() -> void:
@@ -84,23 +83,18 @@ func _reaturn_to_start_position(delta: float) -> void:
 func _go_to_point(point: Vector2, delta: float) -> bool:
 	# Tries to move the enemy to a given point.
 	# Return true if the operation succeeded and false otherwise.
-	_rotate_to_point(point)
 
-	if not _pathfinding_raycast.is_colliding():
-		return position.distance_to(point) <= 1
-
-	# if we do not have an pathfinder node we cannot move to the point
-	if not pathfinder:
+	# if we do not have a navigation 2d node, then we cannot move to the point
+	if not navigation_2d:
 		_current_state = States.REST
 		return false
 	
 	var current_point: Vector2 = global_position
-	var path: Array = pathfinder.get_astar_path(current_point, point)
-	#var nav_point = navigation_2d.get_closest_point(point)
-	#var path_to_point: PoolVector2Array = navigation_2d.get_simple_path(current_point, nav_point)
-	# the maximum distance the enemy can move (without friction)
-	var move_distance: float = _velocity.length() * delta
-	path.remove(0)
+	#var path: Array = pathfinder.get_astar_path(current_point, point)
+	var end_point: Vector2 = navigation_2d.get_closest_point(point)
+	var path: PoolVector2Array = navigation_2d.get_simple_path(current_point, end_point)
+	# the maximum distance the enemy can move
+	var move_distance: float = speed * delta
 	
 	while not path.empty():
 		var next_point: Vector2 = path[0]
@@ -108,6 +102,8 @@ func _go_to_point(point: Vector2, delta: float) -> bool:
 		
 		if move_distance <= distance_to_next_point:
 			_rotate_to_point(next_point)
+			move_and_slide(Vector2(speed, 0).rotated(rotation))
+			#position += position.direction_to(next_point) * move_distance
 			break
 		
 		move_distance -= distance_to_next_point
@@ -115,14 +111,6 @@ func _go_to_point(point: Vector2, delta: float) -> bool:
 		path.remove(0)
 	
 	return path.empty()
-
-
-func _move(delta: float) -> void:
-	_acceleration = Vector2(speed, 0).rotated(rotation)
-	_acceleration -= _velocity * friction
-	_velocity += _acceleration * delta
-	_velocity = Vector2(speed, 0).rotated(rotation)
-	_velocity = move_and_slide(_velocity)
 
 
 func _explode() -> void:

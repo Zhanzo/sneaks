@@ -29,11 +29,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entities/entity.gd"
 }, {
-"base": "TileMap",
-"class": "Pathfinder",
-"language": "GDScript",
-"path": "res://levels/astar_navigation.gd"
-}, {
 "base": "Entity",
 "class": "Player",
 "language": "GDScript",
@@ -49,20 +44,20 @@ _global_script_class_icons={
 "Cruiser": "",
 "Enemy": "",
 "Entity": "",
-"Pathfinder": "",
 "Player": "",
 "Stalker": ""
 }
 
 [application]
 
-config/name="Top Down Shooter"
+config/name="Sneaks"
 run/main_scene="res://menus/main_menu/main_menu.tscn"
 config/icon="res://assets/sprites/icon.png"
 
 [autoload]
 
 BackgroundMusic="*res://singletons/background_music.tscn"
+SaveData="*res://singletons/save_data.gd"
 
 [display]
 

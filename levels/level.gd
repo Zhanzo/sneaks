@@ -1,5 +1,6 @@
 extends Node2D
 
+export var level_id: String
 export var freeze_delay: int = 15
 export var player_low_health: int = 5
 
@@ -7,10 +8,12 @@ onready var _arrow: Sprite = $Arrow
 onready var _player: Player = $Player
 onready var _enemies: Node2D = $Enemies
 onready var _camera: Camera2D = $Camera
-onready var _obstacles: Pathfinder = $ObstacleTileMap
 onready var _background: Sprite = $BackgroundSprite
-onready var _grayscale_filter: ColorRect = $CanvasLayer/GrayScale
+onready var _navigation_2d: Navigation2D = $Navigation2D
+onready var _game_over: Control = $GameOverLayer/GameOver
 onready var _low_health_audio: AudioStreamPlayer = $LowHealthAudio
+onready var _grayscale_filter: ColorRect = $GrayScaleLayer/GrayScale
+onready var _level_complete: Control = $LevelCompleteLayer/LevelComplete
 onready var _muffled_bus_idx: int = AudioServer.get_bus_index("MuffledBus")
 
 var _player_is_near_death: bool = false
@@ -28,11 +31,12 @@ func _ready() -> void:
 		# connect enemy signals
 		enemy.connect("is_hit", self, "_on_Enemy_is_hit")
 		enemy.connect("is_killed", self, "_on_Enemy_is_killed")
-		# set the astar
-		enemy.set_pathfinder(_obstacles)
+		# set the pathfinder
+		enemy.set_navigation_2d(_navigation_2d)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
+	_check_if_level_finished()
 	_find_closest_enemy()
 	_try_to_show_stalkers()
 
@@ -55,7 +59,6 @@ func _find_closest_enemy() -> void:
 		var min_pos: Vector2 = -ctrans.get_origin() / ctrans.get_scale()
 		var view_size: Vector2 = get_viewport_rect().size / ctrans.get_scale()
 		var max_pos: Vector2 = min_pos + view_size
-		var viewport_rect: Rect2 = _camera.get_viewport_rect()
 		_arrow.position.x = clamp(closest_enemy.position.x, min_pos.x + margin.x, max_pos.x - margin.x)
 		_arrow.position.y = clamp(closest_enemy.position.y, min_pos.y + margin.y, max_pos.y - margin.y)
 		_arrow.rotation = _player.position.direction_to(closest_enemy.position).angle() + PI/2
@@ -67,7 +70,6 @@ func _find_closest_enemy() -> void:
 func _try_to_show_stalkers() -> void:
 	# shows the stalkers if all cruisers are defeated
 	var has_only_stalkers: bool = true
-	print(_enemies.get_child_count())
 	for enemy in _enemies.get_children():
 		if enemy is Cruiser:
 			has_only_stalkers = false
@@ -75,6 +77,15 @@ func _try_to_show_stalkers() -> void:
 	if has_only_stalkers:
 		for enemy in _enemies.get_children():
 			enemy.set_is_hidden(false)
+
+
+func _check_if_level_finished() -> void:
+	if _enemies.get_child_count() > 0:
+		return
+	SaveData.levels[level_id] = false
+	SaveData.save_game()
+	AudioServer.set_bus_effect_enabled (_muffled_bus_idx, 0, false)
+	_level_complete.show_menu(int(name) + 1)
 
 
 func _on_Enemy_is_hit(trauma: float) -> void:
@@ -104,3 +115,9 @@ func _on_Player_health_regained(health: int) -> void:
 		Engine.time_scale = 1
 		AudioServer.set_bus_effect_enabled (_muffled_bus_idx, 0, false)
 		_player_is_near_death = false
+
+
+func _on_Player_has_died():
+	Engine.time_scale = 1
+	AudioServer.set_bus_effect_enabled (_muffled_bus_idx, 0, false)
+	_game_over.show_menu()

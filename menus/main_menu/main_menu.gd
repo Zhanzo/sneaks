@@ -8,7 +8,7 @@ func _ready() -> void:
 
 
 func _on_PlayButton_pressed() -> void:
-	if get_tree().change_scene("res://levels/level.tscn") != OK:
+	if get_tree().change_scene("res://menus/level_select_menu/level_select_menu.tscn") != OK:
 		print("Error occured when switching scene")
 
 
