@@ -3,7 +3,6 @@ extends Area2D
 
 var _speed: int = 500
 var _damage: int = 1
-var _velocity: Vector2
 
 onready var _sprite: Sprite = $Sprite
 onready var _death_timer: Timer = $DeathTimer
@@ -13,8 +12,7 @@ onready var _collision_sound: AudioStreamPlayer2D = $CollisionSound
 
 
 func _physics_process(delta: float) -> void:
-	_velocity = Vector2(1, 0).rotated(rotation) * _speed
-	position += _velocity * delta
+	position += Vector2(_speed, 0).rotated(rotation) * delta
 
 
 func initialize(pos: Position2D, rot: float) -> void:

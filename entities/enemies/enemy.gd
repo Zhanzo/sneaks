@@ -98,7 +98,6 @@ func _go_to_point(point: Vector2, delta: float) -> bool:
 		if move_distance <= distance_to_next_point:
 			_rotate_to_point(next_point)
 			move_and_slide(Vector2(speed, 0).rotated(rotation))
-			#position += position.direction_to(next_point) * move_distance
 			break
 		
 		move_distance -= distance_to_next_point
