@@ -12,6 +12,7 @@ outlines = [ PoolVector2Array( 144, 144, 1904, 144, 1904, 1904, 144, 1904 ), Poo
 
 [node name="Level6" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
+level_id = "6"
 
 [node name="NavigationPolygonInstance" parent="Navigation2D" index="0"]
 navpoly = SubResource( 1 )

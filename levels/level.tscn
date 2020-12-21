@@ -16,13 +16,13 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 3, 5, 6 ), PoolIntArra
 outlines = [ PoolVector2Array( 160, 160, 1888, 160, 1888, 1888, 160, 1888 ), PoolVector2Array( 480, 480, 800, 480, 800, 800, 480, 800 ), PoolVector2Array( 1376, 480, 1696, 480, 1696, 800, 1376, 800 ), PoolVector2Array( 1376, 1376, 1696, 1376, 1696, 1696, 1376, 1696 ), PoolVector2Array( 672, 1376, 672, 1696, 352, 1696, 352, 1376 ) ]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
-points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
+points = PoolVector2Array( 96, 8, 120, 32, 128, 56, 128, 72, 120, 96, 96, 120, 72, 128, 56, 128, 32, 120, 8, 96, 0, 72, 0, 56, 8, 32, 32, 8, 56, 0, 72, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
-points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
+points = PoolVector2Array( 96, 8, 120, 32, 128, 56, 128, 72, 120, 96, 96, 120, 72, 128, 56, 128, 32, 120, 8, 96, 0, 72, 0, 56, 8, 32, 32, 8, 56, 0, 72, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=4]
-points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
+points = PoolVector2Array( 72, 0, 96, 8, 120, 32, 128, 56, 128, 72, 120, 96, 96, 120, 72, 128, 56, 128, 32, 120, 8, 96, 0, 72, 0, 56, 8, 32, 32, 8, 56, 0 )
 
 [sub_resource type="TileSet" id=5]
 0/name = "asteroids.png 0"
