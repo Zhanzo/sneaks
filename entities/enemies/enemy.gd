@@ -11,13 +11,18 @@ enum States {
 	RETURN,
 }
 
+export var charge_distance: int 
+export var flee_distance: int 
+
 var navigation_2d: Navigation2D = null setget set_navigation_2d
 var is_visible: bool = false
 
-var _target: Player
+var _player: Player
 var _start_position: Vector2
-var _last_target_position: Vector2
+var _last_player_position: Vector2
 var _current_state: int = States.REST
+var _has_player_been_seen: bool = false
+var _radius: Vector2 = Vector2(250, 0)
 
 onready var _death_timer: Timer = $DeathTimer
 onready var _search_delay: Timer = $SearchDelay
@@ -29,6 +34,8 @@ func _ready() -> void:
 
 
 func _physics_process(delta):
+	check_line_of_sight()
+
 	match _current_state:
 		States.REST:
 			pass
@@ -57,15 +64,31 @@ func set_navigation_2d(value: Navigation2D) -> void:
 
 
 func _attack(delta: float) -> void:
-	if _target:
-		_go_to_point(_target.global_position, delta)
-		_fire_bullet()
+	if _player:
+		var distance_to_player: float = global_position.distance_to(_player.global_position)
+		if distance_to_player >= charge_distance:
+			_go_to_point(_player.global_position, delta)
+			_fire_bullet()
+		elif distance_to_player <= flee_distance:
+			_go_to_point(
+				position + (global_position - _player.global_position).normalized() * speed, 
+				delta
+			)
+		else:
+			_rotate_to_point(_player.global_position)
+			_fire_bullet()
+#		else:
+#			_radius = _radius.normalized().rotated(PI * delta)
+#			_go_to_point(_player.global_position + _radius, delta)
+#			look_at(_player.global_position)
+#			_fire_bullet()
 	else:
 		_current_state = States.RETURN
 
 
 func _search(delta: float) -> void:
-	if _go_to_point(_last_target_position, delta):
+	if _go_to_point(_last_player_position, delta):
+		_has_player_been_seen = false
 		_search_delay.start()
 		_current_state = States.REST
 
@@ -124,6 +147,26 @@ func _fire_bullet() -> void:
 	_attack_timer.start()
 
 
+func check_line_of_sight() -> void:
+	if not _player:
+		return
+
+	var space_state: Physics2DDirectSpaceState = get_world_2d().direct_space_state
+	var result: Dictionary = space_state.intersect_ray(
+		global_position, _player.global_position, [self], collision_mask
+	)
+	if result:
+		if result.collider == _player:
+			_current_state = States.ATTACK
+			_last_player_position = _player.global_position
+			_has_player_been_seen = true
+		else:
+			if _has_player_been_seen:
+				_current_state = States.SEARCH
+			else:
+				_current_state = States.REST
+
+
 func _rotate_to_point(point: Vector2) -> void:
 	var angle_to_point: float = global_position.direction_to(point).angle()
 	
@@ -140,15 +183,16 @@ func _on_DeathTimer_timeout():
 	queue_free()
 
 
-func _on_PlayerDetectionArea_body_entered(target: Player) -> void:
-	_target = target
-	_current_state = States.ATTACK
+func _on_PlayerDetectionArea_body_entered(player: Player) -> void:
+	_player = player
 
 
-func _on_PlayerDetectionArea_body_exited(target: Player) -> void:
-	_target = null
-	_last_target_position = target.global_position
-	_current_state = States.SEARCH
+func _on_PlayerDetectionArea_body_exited(player: Player) -> void:
+	_player = null
+	if _has_player_been_seen:
+		_current_state = States.SEARCH
+	else:
+		_current_state = States.REST
 
 
 func _on_SearchDelay_timeout():

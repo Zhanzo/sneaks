@@ -5,7 +5,6 @@ extends Enemy
 var _is_hidden: bool = true setget set_is_hidden
 
 onready var _rig: Node2D = $StalkerRig
-onready var _raycast: RayCast2D = $RayCast2D
 onready var _animation_tree: AnimationTree = $StalkerRig/AnimationTree
 onready var _muzzle_animation_player: AnimationPlayer = $StalkerRig/MuzzleAnimationPlayer
 onready var _animation_state: AnimationNodeStateMachinePlayback = _animation_tree.get(
@@ -37,18 +36,6 @@ func hurt(damage_taken: int) -> void:
 			_hit_animation_player.play("hurt_hidden")
 		else:
 			_hit_animation_player.play("hurt_visible")
-
-
-func _attack(delta: float) -> void:
-	if _is_hidden and _raycast.get_collider() is Player:
-		# Stay in position when hidden
-		if _target:
-			_rotate_to_point(_target.position)
-			_fire_bullet()
-		else:
-			_current_state = States.REST
-	else:
-		._attack(delta)
 
 
 func _fire_bullet() -> void:

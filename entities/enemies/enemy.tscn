@@ -10,12 +10,14 @@ radius = 500.0
 
 [node name="Enemy" instance=ExtResource( 1 )]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 19
 script = ExtResource( 2 )
 health = 10
 speed = 100
 turn_speed = 0.1
 bullet_scene = ExtResource( 3 )
+charge_distance = 300
+flee_distance = 200
 
 [node name="DeathTimer" type="Timer" parent="." index="4"]
 one_shot = true
